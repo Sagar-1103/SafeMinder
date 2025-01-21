@@ -1,18 +1,17 @@
 import React from 'react';
 import {LogBox} from 'react-native';
-import FitComponent from './components/Fit';
-import SplashScreen from './screens/commonScreens/SplashScreen';
-import RoleScreen from './screens/commonScreens/RoleScreen';
-import CaretakerSignIn from './screens/caretakerScreens/CaretakerSignIn';
-import CaretakerSignUp from './screens/caretakerScreens/CaretakerSignUp';
-
+import {NavigationContainer} from '@react-navigation/native';
+import AppNavigation from './AppNavigation/AppNavigation';
+import LoginProvider from './context/LoginProvider';
 LogBox.ignoreLogs(['new NativeEventEmitter']);
 
-
 const App = () => {
-
   return (
-   <CaretakerSignUp/>
+    <NavigationContainer>
+      <LoginProvider>
+        <AppNavigation />
+      </LoginProvider>
+    </NavigationContainer>
   );
 };
 

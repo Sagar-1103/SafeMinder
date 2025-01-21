@@ -6,15 +6,127 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Modal
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import { useLogin } from '../../context/LoginProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-const CaretakerSignUp = () => {
+const CaretakerSignUp = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [currPassword, setCurrPassword] = useState('');
   const [password, setPassword] = useState('');
+  const {setCaretaker,setRole,setLoggedIn} = useLogin();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState({
+    title: '',
+    description: '',
+    showBtn:false
+  });
+
+  const handleGoogleSignIn = async()=>{
+    try {
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      const signInResult = await GoogleSignin.signIn();
+      idToken = signInResult.data?.idToken;
+      if (!idToken) {
+        idToken = signInResult.idToken;
+      }
+      if (!idToken) {
+        throw new Error('No ID token found');
+      }
+      const googleCredential = auth.GoogleAuthProvider.credential(signInResult.data.idToken);
+      const userCredential = await auth().signInWithCredential(googleCredential);
+      const { displayName, email, photoURL, uid } = userCredential.user;
+      console.log('User Details:', { displayName, email, photoURL, uid });
+
+      const details = {name:displayName,email:email,gender:"",number:""}
+      setCaretaker(details);
+      await AsyncStorage.setItem('loggedIn', "true");
+      setLoggedIn(true);
+      await AsyncStorage.setItem('role', "caretaker");
+      setRole("caretaker");
+      await AsyncStorage.setItem('caretaker', JSON.stringify(details));
+      console.log("Registered Caretaker");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleSubmit = async()=>{
+    try {
+      if(!email.trim() || !password.trim() || !name.trim() || !currPassword.trim() ){
+        setModalMessage({
+          title: 'Incomplete Information',
+          description: 'Please ensure all fields are filled in correctly before proceeding.',
+        });
+        setModalVisible(true);
+         return;
+      }
+      if (password!==currPassword) {
+        setModalMessage({
+          title: 'Password Mismatch',
+          description: 'The password and confirm password fields do not match. Please re-enter them.',
+        });
+        setModalVisible(true);
+        setCurrPassword('');
+        setPassword('');
+        return;
+      }
+
+      console.log(name,email,currPassword,password);
+      await auth().createUserWithEmailAndPassword(email,password);
+
+      const details = {name,email,gender:"",number:""}
+      setCaretaker(details);
+      await AsyncStorage.setItem('loggedIn', "true");
+      setLoggedIn(true);
+      await AsyncStorage.setItem('role', "caretaker");
+      setRole("caretaker");
+      await AsyncStorage.setItem('caretaker', JSON.stringify(details));
+      console.log("Registered Caretaker");
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+      }
+      if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+      }
+      console.error(error);
+    }
+  }
 
   return (
+    <>
+    <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>{modalMessage.title}</Text>
+            <Text style={styles.modalDescription}>
+              {modalMessage.description}
+            </Text>
+            <View
+              style={styles.buttonGroup}>
+              {modalMessage.showBtn && <TouchableOpacity
+                style={styles.closeButton}
+                onPress={handleLimitExceeded}>
+                <Text style={styles.closeButtonText}>Login</Text>
+              </TouchableOpacity>}
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={()=>setModalVisible(false)}>
+                <Text style={styles.closeButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     <View style={styles.container}>
       <Text style={styles.title}>Sign Up</Text>
 
@@ -66,19 +178,20 @@ const CaretakerSignUp = () => {
         <Image source={require('../../assets/eye-slash.png')} style={styles.passIcon} />
       </View>
 
-      <TouchableOpacity style={styles.signInButton}>
+      <TouchableOpacity onPress={handleSubmit} style={styles.signInButton}>
         <Text style={styles.signInButtonText}>Sign Up</Text>
       </TouchableOpacity>
 
-      <Text style={styles.signUpText}>Already have an account? <Text style={styles.signUpLinkText}>Sign in</Text></Text>
+      <Text onPress={()=>navigation.navigate("CaretakerSignIn")} style={styles.signUpText}>Already have an account? <Text style={styles.signUpLinkText}>Sign in</Text></Text>
 
       <Text style={styles.orText}>------------------------------      OR       -------------------------------</Text>
 
-      <TouchableOpacity style={styles.googleButton}>
+      <TouchableOpacity  onPress={() => handleGoogleSignIn().then(() => console.log('Signed in with Google!'))} style={styles.googleButton}>
         <Image source={require('../../assets/googleLogo.png')} style={styles.googleIcon} />
         <Text style={styles.googleButtonText}>Sign in with Google</Text>
       </TouchableOpacity>
     </View>
+    </>
   );
 };
 
@@ -182,6 +295,51 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 19,
     fontWeight: '700'
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    elevation: 5,
+  },
+  modalTitle: {
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 20,
+    fontWeight: '900',
+  },
+  modalDescription: {
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 16,
+    fontWeight: '500',
+    width: 250,
+  },
+  buttonGroup : {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+  },
+  closeButton: {
+    marginTop: 10,
+    backgroundColor: 'rgb(233,108,56)',
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal:20
+  },
+  closeButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
   },
 });
 

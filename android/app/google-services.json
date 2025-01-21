@@ -12,7 +12,20 @@
           "package_name": "com.safeMinder"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "294068590748-qu9078ss6tacj3d4v4chkksho2i8m1hv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safeMinder",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "294068590748-cslueqdkqbn32u6im50h9fmp37t76jt2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD3hrylGojZLarRw22WGpPOUaCkqBR9Kdw"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294068590748-cslueqdkqbn32u6im50h9fmp37t76jt2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
