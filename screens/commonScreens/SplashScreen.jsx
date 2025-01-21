@@ -5,10 +5,9 @@ const SplashScreen = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../assets/safeMinder_logo.jpg')} 
+        source={require('../../assets/safeMinderLogo.png')} 
         style={styles.logo}
       />
-      <Text style={styles.text}>safeMinder</Text>
     </View>
   );
 };
@@ -20,17 +19,12 @@ const styles = StyleSheet.create({
     width:'100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'rgba(226, 115, 64, 0.09)',
   },
   logo: {
     width: '44.8%',
-    height: '20%',
-  },
-  text: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#333',
-    marginTop: 20,
+    height: undefined,
+    aspectRatio: 1.05
   },
 });
 
