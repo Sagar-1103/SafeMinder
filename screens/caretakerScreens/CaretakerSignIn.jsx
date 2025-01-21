@@ -17,7 +17,7 @@ const CaretakerSignIn = () => {
       <Text style={styles.title}>Sign In</Text>
 
       <View style={styles.emailInputContainer}>
-        <Image source={require('../../../assets/safeMinder_logo.jpg')} style={styles.inputIcon} />
+        <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
@@ -28,7 +28,7 @@ const CaretakerSignIn = () => {
       </View>
 
       <View style={styles.inputContainer}>
-        <Image source={require('../../../assets/safeMinder_logo.jpg')} style={styles.inputIcon} />
+        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholder="Enter your password"
@@ -49,10 +49,10 @@ const CaretakerSignIn = () => {
 
       <Text style={styles.signUpText}>Don't have an account? <Text style={styles.signUpLinkText}>Sign up</Text></Text>
 
-      <Text style={styles.orText}>--------------------------      OR       ---------------------------</Text>
+      <Text style={styles.orText}>------------------------------      OR       -------------------------------</Text>
 
       <TouchableOpacity style={styles.googleButton}>
-        <Image source={require('../../../assets/safeMinder_logo.jpg')} style={styles.googleIcon} />
+        <Image source={require('../../assets/googleLogo.png')} style={styles.googleIcon} />
         <Text style={styles.googleButtonText}>Sign in with Google</Text>
       </TouchableOpacity>
     </View>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'rgb(248, 250, 250)',
     borderColor: 'rgb(212, 209, 209)',
-    borderRadius: 10,
+    borderRadius: 15,
     paddingVertical: '1.2%',
     paddingHorizontal: '5%',
   },
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'rgb(248, 250, 250)',
     borderColor: 'rgb(212, 209, 209)',
-    borderRadius: 10,
+    borderRadius: 15,
     paddingVertical: '1.2%',
     paddingHorizontal: '5%',
   },
@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   inputIcon: {
-    width: '8%', // Use percentage width
-    height: '42%', // Use percentage height
+    width: '10%', // Use percentage width
+    height: '60%', // Use percentage height
     marginHorizontal: '4%',
   },
   forgotPasswordButton: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   signInButton: {
     backgroundColor: 'rgb(233,108,56)', // Red color
     padding: '6%', // Use percentage padding
-    borderRadius: 30,
+    borderRadius: 32,
     marginTop: '4%', // Use percentage margin
   },
   signInButtonText: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: '8%',
   },
   googleIcon: {
-    width: '7%', // Use percentage width
+    width: '9.5%', // Use percentage width
     height: '100%', // Use percentage height
     marginRight: '12%',
   },
