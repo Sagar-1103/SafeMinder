@@ -8,13 +8,26 @@ import {
   Image,
 } from 'react-native';
 
-const CaretakerSignIn = () => {
+const CaretakerSignUp = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [currPassword, setCurrPassword] = useState('');
   const [password, setPassword] = useState('');
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+      <Text style={styles.title}>Sign Up</Text>
+
+      <View style={styles.emailInputContainer}>
+        <Image source={require('../../assets/User-Outline.png')} style={styles.inputIcon} />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#888"
+          placeholder="Enter your name"
+          value={name}
+          onChangeText={(text) => setName(text)}
+        />
+      </View>
 
       <View style={styles.emailInputContainer}>
         <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
@@ -27,6 +40,19 @@ const CaretakerSignIn = () => {
         />
       </View>
 
+      <View style={styles.emailInputContainer}>
+        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your password"
+          placeholderTextColor="#888"
+          secureTextEntry
+          value={currPassword}
+          onChangeText={(text) => setCurrPassword(text)}
+        />
+        <Image source={require('../../assets/eye-slash.png')} style={styles.passIcon} />
+      </View>
+
       <View style={styles.inputContainer}>
         <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
         <TextInput
@@ -37,17 +63,14 @@ const CaretakerSignIn = () => {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
+        <Image source={require('../../assets/eye-slash.png')} style={styles.passIcon} />
       </View>
 
-      <TouchableOpacity style={styles.forgotPasswordButton}>
-        <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-      </TouchableOpacity>
-
       <TouchableOpacity style={styles.signInButton}>
-        <Text style={styles.signInButtonText}>Sign In</Text>
+        <Text style={styles.signInButtonText}>Sign Up</Text>
       </TouchableOpacity>
 
-      <Text style={styles.signUpText}>Don't have an account? <Text style={styles.signUpLinkText}>Sign up</Text></Text>
+      <Text style={styles.signUpText}>Already have an account? <Text style={styles.signUpLinkText}>Sign in</Text></Text>
 
       <Text style={styles.orText}>------------------------------      OR       -------------------------------</Text>
 
@@ -71,7 +94,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     textAlign: 'center',
     fontWeight: 'bold',
-    marginTop: '20%',
+    marginTop: '16%',
     marginBottom: '12%', // Use percentage margin
   },
   emailInputContainer: {
@@ -88,7 +111,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: '4%', // Use percentage margin
+    marginBottom: '8%', // Use percentage margin
     borderWidth: 1,
     backgroundColor: 'rgb(248, 250, 250)',
     borderColor: 'rgb(212, 209, 209)',
@@ -107,14 +130,9 @@ const styles = StyleSheet.create({
     height: '60%', // Use percentage height
     marginHorizontal: '4%',
   },
-  forgotPasswordButton: {
-    alignSelf: 'flex-end', // Align to the right
-  },
-  forgotPasswordText: {
-    color: 'rgb(220, 115, 67)',
-    fontWeight: '500',
-    fontSize: 15,
-    marginBottom: '10%',
+  passIcon: {
+    width: '10%', 
+    height: '60%',
   },
   signInButton: {
     backgroundColor: 'rgb(233,108,56)', // Red color
@@ -140,8 +158,8 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   orText: {
-    marginTop: '18%', // Use percentage margin
-    marginBottom: '15%', // Use percentage margin
+    marginTop: '12%', // Use percentage margin
+    marginBottom: '12%', // Use percentage margin
     textAlign: 'center',
     color: 'rgb(204, 201, 201)'
   },
@@ -167,4 +185,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CaretakerSignIn;
+export default CaretakerSignUp;

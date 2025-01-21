@@ -1,26 +1,45 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const RoleScreen = () => {
   return (
     <View style={styles.container}>
       <Image 
-        source={require('../../assets/safeMinder_logo.jpg')} 
+        source={require('../../assets/safeMinderLogoOnly.png')} 
         style={styles.logo} 
       />
       <Text style={styles.title}>Choose Role</Text>
 
-      <TouchableOpacity style={styles.button}>
-        {/* Image for Senior Citizen */}
-        <Text style={styles.buttonText}>Senior Citizen</Text>
-      </TouchableOpacity>
+      <LinearGradient 
+        colors={['rgb(91,88,166)','rgb(45,54,144)', 'rgb(73,68,115)']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.button}
+      >
+        <TouchableOpacity>
+          <Image
+                  source={require('../../assets/UserSelectionProfile.png')} 
+                  style={styles.buttonImg}
+                />
+        </TouchableOpacity>
+      </LinearGradient>
       <Text style={styles.roleText}>Senior Citizen</Text>
 
-      <TouchableOpacity style={styles.button}>
-        {/* Image for Care Taker */}
-        <Text style={styles.buttonText}>Care Taker</Text>
-      </TouchableOpacity>
-      <Text style={styles.roleText}>Care Taker</Text>
+      <LinearGradient 
+        colors={['rgb(91,88,166)','rgb(45,54,144)', 'rgb(73,68,115)']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.button}
+      >
+        <TouchableOpacity>
+        <Image
+                  source={require('../../assets/CareTakerSelectionProfile.png')} 
+                  style={styles.careTakerImg}
+                />
+        </TouchableOpacity>
+      </LinearGradient>
+      <Text style={styles.roleText}>CareTaker</Text>
     </View>
   );
 };
@@ -33,21 +52,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   logo: {
-    width: '30%',
+    width: '25%',
     height: '12%',
     resizeMode: 'contain',
-    marginBottom: '4%',
+    marginBottom: '7%',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: '15%',
-    color: '#000000'
+    marginBottom: '7%',
+    color: '#000000',
+    fontFamily: 'Poppins',
   },
   button: {
     width: '50%',
     height: '25%',
-    backgroundColor: '#123456',
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
@@ -56,6 +75,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#FFF',
   },
   roleText: {
     fontSize: 20,
@@ -63,6 +83,20 @@ const styles = StyleSheet.create({
     marginBottom: '7%', 
     color: '#000000'
   },
+  buttonImg: {
+    width: '100%',
+    height: undefined,
+    aspectRatio: 1.1,
+    borderRadius: 25,
+    marginTop: '11%'
+  },
+  careTakerImg: {
+    width: '100%',
+    height: undefined,
+    aspectRatio: 1.3,
+    borderRadius: 25,
+    marginTop: '25%'
+  }
 });
 
 export default RoleScreen;
