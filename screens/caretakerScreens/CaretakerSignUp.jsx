@@ -16,7 +16,12 @@ const CaretakerSignUp = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign Up</Text>
+      <View style={styles.headerContainer}>
+        <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+        <Text style={styles.title}>Sign Up</Text>
+        <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} />
+      </View>
+      
 
       <View style={styles.emailInputContainer}>
         <Image source={require('../../assets/User-Outline.png')} style={styles.inputIcon} />
@@ -93,9 +98,8 @@ const styles = StyleSheet.create({
     fontSize: 32, // Use percentage font size
     color: '#000000',
     textAlign: 'center',
+    
     fontWeight: 'bold',
-    marginTop: '16%',
-    marginBottom: '12%', // Use percentage margin
   },
   emailInputContainer: {
     flexDirection: 'row',
@@ -119,6 +123,14 @@ const styles = StyleSheet.create({
     paddingVertical: '1.2%',
     paddingHorizontal: '5%',
   },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: '10%',
+    marginBottom: '15%'
+  },
   input: {
     flex: 1,
     marginLeft: '3%',
@@ -129,6 +141,16 @@ const styles = StyleSheet.create({
     width: '10%', // Use percentage width
     height: '60%', // Use percentage height
     marginHorizontal: '4%',
+  },
+  backButton: {
+    width: '10%', // Use percentage width
+    height: '50%', // Use percentage height
+    marginLeft: '-5%'
+  },
+  backButtonNull: {
+    width: '10%', // Use percentage width
+    height: '50%', // Use percentage height
+    opacity: 0
   },
   passIcon: {
     width: '10%', 

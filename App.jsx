@@ -5,6 +5,8 @@ import SplashScreen from './screens/commonScreens/SplashScreen';
 import RoleScreen from './screens/commonScreens/RoleScreen';
 import CaretakerSignIn from './screens/caretakerScreens/CaretakerSignIn';
 import CaretakerSignUp from './screens/caretakerScreens/CaretakerSignUp';
+import SignIn from './screens/userScreens/UserSignIn';
+
 
 LogBox.ignoreLogs(['new NativeEventEmitter']);
 
@@ -12,7 +14,7 @@ LogBox.ignoreLogs(['new NativeEventEmitter']);
 const App = () => {
 
   return (
-   <CaretakerSignUp/>
+   <SignIn/>
   );
 };
 

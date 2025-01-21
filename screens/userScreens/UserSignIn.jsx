@@ -13,12 +13,16 @@ const SignIn = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+      <View style={styles.headerContainer}>
+              <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+              <Text style={styles.title}>Sign In</Text>
+              <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} />
+            </View>
       
       <Text style={styles.InnerText}>Ask your caretaker to provide pairing code</Text>
 
       <View style={styles.emailInputContainer}>
-        <Image source={require('../../assets/safeMinder_logo.jpg')} style={styles.inputIcon} />
+        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
@@ -47,9 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 32, // Use percentage font size
     color: '#000000',
     textAlign: 'center',
-    fontWeight: 'bold',
-    marginTop: '20%',
-    marginBottom: '12%', // Use percentage margin
+    fontWeight: 'bold', // Use percentage margin
   },
   emailInputContainer: {
     flexDirection: 'row',
@@ -68,9 +70,27 @@ const styles = StyleSheet.create({
     color: '#888',
     fontSize: 17,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: '10%',
+    marginBottom: '15%'
+  },
+  backButton: {
+    width: '10%', // Use percentage width
+    height: '50%', // Use percentage height
+    marginLeft: '-5%'
+  },
+  backButtonNull: {
+    width: '10%', // Use percentage width
+    height: '50%', // Use percentage height
+    opacity: 0
+  },
   inputIcon: {
-    width: '8%', // Use percentage width
-    height: '42%', // Use percentage height
+    width: '10%', // Use percentage width
+    height: '60%', // Use percentage height
     marginHorizontal: '4%',
   },
   signInButton: {
