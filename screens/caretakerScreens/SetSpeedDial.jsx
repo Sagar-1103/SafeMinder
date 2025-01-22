@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import ModalComponent from '../../components/Modal';
+import { useLogin } from '../../context/LoginProvider';
 const SetSpeedDial = ({navigation}) => {
   const [contact1, setContact1] = useState({name:'',phNo:''});
   const [contact2, setContact2] = useState({name:'',phNo:''});

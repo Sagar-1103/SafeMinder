@@ -21,7 +21,7 @@ const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
     const [loading,setLoading] = useState(true);
-    const {role,setRole,loggedIn,setCaretaker,setUser,setLoggedIn,isAssigned,setIsAssigned} = useLogin();
+    const {role,setRole,loggedIn,setCaretaker,setUser,setLoggedIn,isAssigned,setIsAssigned,setUserHomeLocation} = useLogin();
 
     GoogleSignin.configure({
         webClientId: "294068590748-cslueqdkqbn32u6im50h9fmp37t76jt2.apps.googleusercontent.com",
@@ -41,7 +41,9 @@ const AppNavigation = () => {
             const tempCaretakerDetails  = await AsyncStorage.getItem('caretaker');
             const tempUserDetails  = await AsyncStorage.getItem('user');
             const tempIsAssigned = await AsyncStorage.getItem('isAssigned');
+            const tempUserHomeCoordinates = await AsyncStorage.getItem('userHomeLocation');
             setCaretaker(JSON.parse(tempCaretakerDetails));
+            setUserHomeLocation(JSON.parse(tempUserHomeCoordinates));
             setUser(JSON.parse(tempUserDetails));
             setRole(tempRole);
             if(tempLoggedIn==="true"){

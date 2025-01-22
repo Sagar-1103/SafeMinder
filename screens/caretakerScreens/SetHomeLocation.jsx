@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,9 @@ import {
 import Mapbox, {MapView, Camera, PointAnnotation} from '@rnmapbox/maps';
 import ModalComponent from '../../components/Modal';
 import debounce from 'lodash.debounce';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLogin } from '../../context/LoginProvider';
+import firestore from '@react-native-firebase/firestore';
 
 Mapbox.setAccessToken(
   'pk.eyJ1IjoiY29kZXNlZWtlcnMiLCJhIjoiY2x1ZmRidHkzMGtxMjJrcm84Nm93azFydyJ9.4PcFMmvYRH31QSZmtU1cXA',
@@ -27,6 +30,7 @@ const SetHomeLocation = ({navigation}) => {
     description: '',
     showBtn: false,
   });
+  const {userHomeLocation, setUserHomeLocation,caretaker} = useLogin();
 
   const fetchRecommendations = async text => {
     const accessToken =
@@ -51,6 +55,10 @@ const SetHomeLocation = ({navigation}) => {
     }
   };
 
+  const handleMapPress = (event) => {
+    setCoordinates(event.geometry.coordinates);
+  };
+
   const debouncedFetchRecommendations = debounce(async (text) => {
     await fetchRecommendations(text);
 }, 5000);
@@ -61,8 +69,13 @@ const SetHomeLocation = ({navigation}) => {
     setRecommendations([]);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     try {
+      console.log(coordinates);
+      setUserHomeLocation(coordinates);
+      const res1 = await firestore().collection('Caretakers').doc(caretaker.id).set({userHomeCoordinates:coordinates}, { merge: true });
+      const res2 = await firestore().collection('Users').doc(caretaker.id).set({userHomeCoordinates:coordinates}, { merge: true });
+      await AsyncStorage.setItem('userHomeLocation', JSON.stringify(coordinates));
       navigation.navigate('SetSpeedDial');
     } catch (error) {
       console.log('Error:', error);
@@ -76,6 +89,10 @@ const SetHomeLocation = ({navigation}) => {
         setRecommendations([]);
     }
 };
+
+  // useEffect(()=>{
+  //   setCoordinates(userHomeLocation);
+  // },[])
 
   return (
     <>
@@ -122,7 +139,7 @@ const SetHomeLocation = ({navigation}) => {
 )}
 
         <View style={styles.mapContainer}>
-          <MapView style={styles.mapBox}>
+          <MapView onPress={handleMapPress} style={styles.mapBox}>
             <Camera zoomLevel={10} centerCoordinate={coordinates} />
             <PointAnnotation id="pin" coordinate={coordinates} />
           </MapView>
