@@ -6,11 +6,12 @@ import { useLogin } from '../context/LoginProvider';
 
 // create a component
 const Temp = () => {
-    const { role, code, loggedIn, isAssigned, caretaker, user } = useLogin();
+    const { role, code, loggedIn, isAssigned,process, caretaker, user } = useLogin();
     
     return (
         <View style={styles.container}>
             <Text>Role: {role}</Text>
+            <Text>Process: {process}</Text>
             <Text>Code: {code}</Text>
             <Text>Logged In: {loggedIn ? 'Yes' : 'No'}</Text>
             <Text>Is Assigned: {isAssigned ? 'Yes' : 'No'}</Text>

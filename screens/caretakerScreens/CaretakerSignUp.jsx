@@ -12,13 +12,14 @@ import auth from '@react-native-firebase/auth';
 import { useLogin } from '../../context/LoginProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import firestore from '@react-native-firebase/firestore';
 
 const CaretakerSignUp = ({navigation}) => {
   const [tempName, setTempName] = useState('');
   const [tempEmail, setTempEmail] = useState('');
   const [tempCurrPassword, setTempCurrPassword] = useState('');
   const [tempPassword, setTempPassword] = useState('');
-  const {setCaretaker,setRole,setLoggedIn} = useLogin();
+  const {setLoggedIn, setRole, setCaretaker,setUser,setProcess,setIsAssigned} = useLogin();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     title: '',
@@ -26,9 +27,9 @@ const CaretakerSignUp = ({navigation}) => {
     showBtn:false
   });
 
-  const handleGoogleSignIn = async()=>{
+  const handleGoogleSignIn = async () => {
     try {
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
       const signInResult = await GoogleSignin.signIn();
       idToken = signInResult.data?.idToken;
       if (!idToken) {
@@ -37,23 +38,52 @@ const CaretakerSignUp = ({navigation}) => {
       if (!idToken) {
         throw new Error('No ID token found');
       }
-      const googleCredential = auth.GoogleAuthProvider.credential(signInResult.data.idToken);
-      const userCredential = await auth().signInWithCredential(googleCredential);
-      const { displayName, email, photoURL, uid } = userCredential.user;
-      console.log('User Details:', { displayName, email, photoURL, uid });
+      const googleCredential = auth.GoogleAuthProvider.credential(
+        signInResult.data.idToken,
+      );
+      const userCredential = await auth().signInWithCredential(
+        googleCredential,
+      );
+      const {displayName, email, photoURL, uid} = userCredential.user;
+      console.log('User Details:', {displayName, email, photoURL, uid});
 
-      const details = {name:displayName,email:email,gender:"",number:""}
+      const caretakerQuery = await firestore()
+      .collection('Caretakers')
+      .where('email', '==', email)
+      .get();
+
+      if (!caretakerQuery.empty) {
+        const caretakerData = caretakerQuery.docs[0].data();
+        let userData = await firestore().collection('Users').doc(caretakerData.id).get();
+        userData = userData._data;
+        await AsyncStorage.setItem('user',JSON.stringify(userData));
+        setUser(userData);
+        await AsyncStorage.setItem('process','true');
+        setProcess(true);
+        await AsyncStorage.setItem('isAssigned','true');
+        setIsAssigned(true);
+        await AsyncStorage.setItem('role', 'caretaker');
+        setRole('caretaker');
+        await AsyncStorage.setItem('loggedIn', 'true');
+        setLoggedIn(true);
+        await AsyncStorage.setItem('caretaker', JSON.stringify(caretakerData));
+        setCaretaker(caretakerData);
+      }
+      else {
+      const details = {name: displayName, email: email, gender: '', number: ''};
       setCaretaker(details);
-      await AsyncStorage.setItem('loggedIn', "true");
+      await AsyncStorage.setItem('loggedIn', 'true');
       setLoggedIn(true);
-      await AsyncStorage.setItem('role', "caretaker");
-      setRole("caretaker");
+      await AsyncStorage.setItem('role', 'caretaker');
+      setRole('caretaker');
       await AsyncStorage.setItem('caretaker', JSON.stringify(details));
-      console.log("Registered Caretaker");
+      console.log('Registered Caretaker');
+      }
+
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleSubmit = async()=>{
     try {

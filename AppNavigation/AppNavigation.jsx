@@ -16,12 +16,14 @@ import Onboarding3 from '../screens/caretakerScreens/Onboarding3';
 import Temp from "../components/Temp";
 import SetHomeLocation from '../screens/caretakerScreens/SetHomeLocation';
 import SetSpeedDial from '../screens/caretakerScreens/SetSpeedDial';
+import UserCodeScreen from '../screens/caretakerScreens/UserCodeScreen';
+import { Text, View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
     const [loading,setLoading] = useState(true);
-    const {role,setRole,loggedIn,setCaretaker,setUser,setLoggedIn,isAssigned,setIsAssigned,setUserHomeLocation} = useLogin();
+    const {role,setRole,loggedIn,process, setProcess,setCaretaker,setUser,setLoggedIn,isAssigned,setIsAssigned,code,setCode,setUserHomeLocation} = useLogin();
 
     GoogleSignin.configure({
         webClientId: "294068590748-cslueqdkqbn32u6im50h9fmp37t76jt2.apps.googleusercontent.com",
@@ -38,19 +40,27 @@ const AppNavigation = () => {
     const storageAccess = async()=>{
             const tempLoggedIn = await AsyncStorage.getItem('loggedIn');
             const tempRole  = await AsyncStorage.getItem('role');
+            const tempCode  = await AsyncStorage.getItem('code');
             const tempCaretakerDetails  = await AsyncStorage.getItem('caretaker');
             const tempUserDetails  = await AsyncStorage.getItem('user');
             const tempIsAssigned = await AsyncStorage.getItem('isAssigned');
             const tempUserHomeCoordinates = await AsyncStorage.getItem('userHomeLocation');
+            const tempProcess = await AsyncStorage.getItem('process');
+            console.log(role,isAssigned,process);
+            
             setCaretaker(JSON.parse(tempCaretakerDetails));
             setUserHomeLocation(JSON.parse(tempUserHomeCoordinates));
             setUser(JSON.parse(tempUserDetails));
             setRole(tempRole);
+            setCode(tempCode);
             if(tempLoggedIn==="true"){
                 setLoggedIn(true);
             }
             if(tempIsAssigned==="true"){
                 setIsAssigned(true);
+            } 
+            if(tempProcess==="true"){
+                setProcess(true);
             } 
     }
 
@@ -81,20 +91,30 @@ const AppNavigation = () => {
             </Stack.Navigator>
         );
     }
-    if(role==="caretaker" && isAssigned){
+    if(role==="caretaker" && isAssigned && !process){
+            return (
+                <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="SetHomeLocation"  >
+                           <Stack.Screen name="SetHomeLocation" component={SetHomeLocation}/>
+                           <Stack.Screen name="SetSpeedDial" component={SetSpeedDial}/>
+                           <Stack.Screen name="UserCodeScreen" component={UserCodeScreen}/>
+                </Stack.Navigator>
+            );
+        }
+    if(role==="caretaker" && isAssigned && process){
         return (
-            <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="SetHomeLocation"  >
-                       <Stack.Screen name="SetHomeLocation" component={SetHomeLocation}/>
-                       <Stack.Screen name="SetSpeedDial" component={SetSpeedDial}/>
-            </Stack.Navigator>
+                <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Temp"  >
+                           <Stack.Screen name="Temp" component={Temp}/>
+                </Stack.Navigator>
         );
     }
-    return (
-        <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Temp"  >
-                   <Stack.Screen name="UserDetails" component={Temp}/>
-        </Stack.Navigator>
-    );
-  
+    if(role==="user"){
+        return (
+                <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Temp"  >
+                           <Stack.Screen name="Temp" component={Temp}/>
+                </Stack.Navigator>
+        );
+    }
+        
 };
 
 export default AppNavigation;

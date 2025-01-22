@@ -11,16 +11,18 @@ import {
 import Lock from '../../assets/lock.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useLogin} from '../../context/LoginProvider';
+import firestore from '@react-native-firebase/firestore';
 
 const UserSignIn = ({navigation}) => {
   const [tempCode, setTempCode] = useState('');
-  const {setLoggedIn, setRole} = useLogin();
+  const {setLoggedIn, setRole,setCaretaker,setUser} = useLogin();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     title: '',
     description: '',
     showBtn: false,
   });
+  const {setCode} = useLogin();
 
   const handleSubmit = async () => {
     try {
@@ -33,10 +35,29 @@ const UserSignIn = ({navigation}) => {
         setModalVisible(true);
         return;
       }
+      const res1 = await firestore().collection('Users').doc(tempCode).get();
+      const res2 = await firestore().collection('Caretakers').doc(tempCode).get();
+      const response1 = res1._data;
+      const response2 = res2._data;
+      if(!response1 && !response2){
+        setModalMessage({
+          title: 'Code Error',
+          description:
+            'Code doesnt exist.',
+        });
+        setModalVisible(true);
+        return;
+      }
+      await AsyncStorage.setItem('caretaker',JSON.stringify(response2));
+      setCaretaker(response2);
+      await AsyncStorage.setItem('user',JSON.stringify(response1));
+      setUser(response1);
       await AsyncStorage.setItem('loggedIn', 'true');
       setLoggedIn(true);
       await AsyncStorage.setItem('role', 'user');
       setRole('user');
+      await AsyncStorage.setItem('code',tempCode);
+      setCode(tempCode);
     } catch (error) {
       console.log('Error signing user : ', error);
     }
@@ -48,7 +69,7 @@ const UserSignIn = ({navigation}) => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}>
+        onRequestClose={() => setModalVisible(false)}>JSON.stringify
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalTitle}>{modalMessage.title}</Text>

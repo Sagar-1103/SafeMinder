@@ -6,6 +6,7 @@ const LoginProvider = props => {
   const [role, setRole] = useState(null);
   const [code, setCode] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [process, setProcess] = useState(false);
   const [caretaker, setCaretaker] = useState({
     id:'',
     name: '',
@@ -46,7 +47,9 @@ const LoginProvider = props => {
         user,
         setUser,
         isAssigned,
-        setIsAssigned
+        setIsAssigned,
+        process,
+        setProcess
       }}>
       {props.children}
     </LoginContext.Provider>

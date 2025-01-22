@@ -27,7 +27,7 @@ const UserDetails = ({navigation}) => {
       showBtn:false
     });
 
-  const {setCaretaker,setUser,caretaker,setIsAssigned} = useLogin();
+  const {setCaretaker,setUser,caretaker,setIsAssigned,setCode} = useLogin();
 
   const handleSubmit = async () => {
     try {
@@ -59,6 +59,7 @@ const UserDetails = ({navigation}) => {
       setUser(userDetails);
       setCaretaker(caretakerDetails);
       setIsAssigned(true);
+      setCode(id);
       
     const res1 = await firestore().collection('Caretakers').doc(id).set({...caretaker,...caretakerDetails});
     const res2 = await firestore().collection('Users').doc(id).set(userDetails);
@@ -66,6 +67,7 @@ const UserDetails = ({navigation}) => {
     await AsyncStorage.setItem('user', JSON.stringify(userDetails));
     await AsyncStorage.setItem('caretaker', JSON.stringify(caretakerDetails));
     await AsyncStorage.setItem('isAssigned', "true");
+    await AsyncStorage.setItem('code',id);
       
     } catch (error) {
       console.log("Error:", error);

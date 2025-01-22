@@ -12,11 +12,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import {useLogin} from '../../context/LoginProvider';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import firestore from '@react-native-firebase/firestore';
+
 
 const CaretakerSignIn = ({navigation}) => {
   const [tempEmail, setTempEmail] = useState('');
   const [tempPassword, setTempPassword] = useState('');
-  const {setLoggedIn, setRole, setCaretaker} = useLogin();
+  const {setLoggedIn, setRole, setCaretaker,setUser,setProcess,setIsAssigned} = useLogin();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     title: '',
@@ -44,6 +46,29 @@ const CaretakerSignIn = ({navigation}) => {
       const {displayName, email, photoURL, uid} = userCredential.user;
       console.log('User Details:', {displayName, email, photoURL, uid});
 
+      const caretakerQuery = await firestore()
+      .collection('Caretakers')
+      .where('email', '==', email)
+      .get();
+
+      if (!caretakerQuery.empty) {
+        const caretakerData = caretakerQuery.docs[0].data();
+        let userData = await firestore().collection('Users').doc(caretakerData.id).get();
+        userData = userData._data;
+        await AsyncStorage.setItem('user',JSON.stringify(userData));
+        setUser(userData);
+        await AsyncStorage.setItem('process','true');
+        setProcess(true);
+        await AsyncStorage.setItem('isAssigned','true');
+        setIsAssigned(true);
+        await AsyncStorage.setItem('role', 'caretaker');
+        setRole('caretaker');
+        await AsyncStorage.setItem('loggedIn', 'true');
+        setLoggedIn(true);
+        await AsyncStorage.setItem('caretaker', JSON.stringify(caretakerData));
+        setCaretaker(caretakerData);
+      }
+      else {
       const details = {name: displayName, email: email, gender: '', number: ''};
       setCaretaker(details);
       await AsyncStorage.setItem('loggedIn', 'true');
@@ -52,6 +77,8 @@ const CaretakerSignIn = ({navigation}) => {
       setRole('caretaker');
       await AsyncStorage.setItem('caretaker', JSON.stringify(details));
       console.log('Registered Caretaker');
+      }
+
     } catch (error) {
       console.log(error);
     }
