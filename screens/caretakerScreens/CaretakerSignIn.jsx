@@ -14,10 +14,15 @@ const CaretakerSignIn = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-              <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+      <TouchableOpacity style={styles.backContainer}>
+              <View>
+                <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+              </View>
+            </TouchableOpacity>
+            <View style={styles.headerContainer}>
+              
               <Text style={styles.title}>Sign In</Text>
-              <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} />
+              {/* <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} /> */}
             </View>
 
       <View style={styles.emailInputContainer}>
@@ -87,6 +92,12 @@ const styles = StyleSheet.create({
     paddingVertical: '1.2%',
     paddingHorizontal: '5%',
   },
+  backContainer: {
+    height: '10%',
+    top: '7%',
+    width: '50%',
+    // right: '80%'
+  },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -125,9 +136,10 @@ const styles = StyleSheet.create({
     marginTop: '4%', // Use percentage margin
   },
   backButton: {
-    width: '10%', // Use percentage width
-    height: '50%', // Use percentage height
-    marginLeft: '-5%'
+    width: '20%', // Use percentage width
+    height: '60%', // Use percentage height
+    marginLeft: '-5%',
+    marginTop: '7.5%',
   },
   backButtonNull: {
     width: '10%', // Use percentage width
@@ -137,9 +149,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '100%',
-    marginVertical: '10%',
+    marginVertical: '-5%',
     marginBottom: '15%'
   },
   signInButtonText: {
