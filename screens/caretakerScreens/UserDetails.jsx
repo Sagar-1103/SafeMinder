@@ -5,21 +5,79 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
+  Image
 } from 'react-native';
+import ModalComponent from '../../components/Modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLogin } from '../../context/LoginProvider';
+import firestore from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid';
 
-const UserDetails = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [gender, setGender] = useState('');
-  const [dob, setDob] = useState('');
+const UserDetails = ({navigation}) => {
+  const [tempUserName, setTempUserName] = useState('');
+  const [tempUserEmail, setTempUserEmail] = useState('');
+  const [userGender, setUserGender] = useState('');
+  const [userDob, setUserDob] = useState('');
   const [userphno, setUserphno] = useState(); 
-  const [phno, setPhno] = useState(); 
+  const [tempcaretakerPhNo, setTempcaretakerPhNo] = useState(); 
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState({
+      title: '',
+      description: '',
+      showBtn:false
+    });
+
+  const {setCaretaker,setUser,caretaker,setIsAssigned} = useLogin();
+
+  const handleSubmit = async () => {
+    try {
+      if (!tempUserName.trim() || !tempUserEmail.trim() || !userGender.trim() || !userDob.trim() || !userphno.trim() || !tempcaretakerPhNo.trim()) {
+        setModalMessage({
+          title: 'Incomplete Information',
+          description: 'Please ensure all fields are filled in correctly before proceeding.',
+        });
+        setModalVisible(true);
+         return;
+      }
+
+      let id = uuid.v4();
+      id = id.slice(0, 6);
+      
+      const userDetails = {
+        id:id,
+        name: tempUserName,
+        email: tempUserEmail,
+        gender: userGender,
+        dob: userDob,
+        number: userphno,
+      };
+  
+      const caretakerDetails = {
+        id:id,
+        number: tempcaretakerPhNo,
+      };
+      setUser(userDetails);
+      setCaretaker(caretakerDetails);
+      setIsAssigned(true);
+      
+    const res1 = await firestore().collection('Caretakers').doc(id).set({...caretaker,...caretakerDetails});
+    const res2 = await firestore().collection('Users').doc(id).set(userDetails);
+
+    await AsyncStorage.setItem('user', JSON.stringify(userDetails));
+    await AsyncStorage.setItem('caretaker', JSON.stringify(caretakerDetails));
+    await AsyncStorage.setItem('isAssigned', "true");
+      
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
 
 
   return (
+    <>
+    <ModalComponent modalVisible={modalVisible} setModalVisible={setModalVisible} title={modalMessage.title} description={modalMessage.description} showBtn={modalMessage.showBtn} />
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backContainer}>
+      <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backContainer}>
         <View>
           <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
         </View>
@@ -36,9 +94,9 @@ const UserDetails = () => {
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
-          placeholder="Enter your name"
-          value={name}
-          onChangeText={(text) => setName(text)}
+          placeholder="Enter user name"
+          value={tempUserName}
+          onChangeText={(text) => setTempUserName(text)}
         />
       </View>
 
@@ -47,9 +105,9 @@ const UserDetails = () => {
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
-          placeholder="Enter your email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          placeholder="Enter user email"
+          value={tempUserEmail}
+          onChangeText={(text) => setTempUserEmail(text)}
         />
       </View>
 
@@ -58,9 +116,9 @@ const UserDetails = () => {
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
-          placeholder="Enter your gender"
-          value={gender}
-          onChangeText={(text) => setGender(text)}
+          placeholder="Enter user gender"
+          value={userGender}
+          onChangeText={(text) => setUserGender(text)}
         />
       </View>
 
@@ -69,9 +127,9 @@ const UserDetails = () => {
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
-          placeholder="Enter your D.O.B"
-          value={dob}
-          onChangeText={(text) => setDob(text)}
+          placeholder="Enter user D.O.B"
+          value={userDob}
+          onChangeText={(text) => setUserDob(text)}
         />
       </View>
 
@@ -81,8 +139,8 @@ const UserDetails = () => {
           style={styles.input}
           placeholderTextColor="#888"
           placeholder="Enter your phone number"
-          value={phno}
-          onChangeText={(text) => setPhno(text)}
+          value={tempcaretakerPhNo}
+          onChangeText={(text) => setTempcaretakerPhNo(text)}
         />
       </View>      
 
@@ -97,11 +155,12 @@ const UserDetails = () => {
         />
       </View>
 
-      <TouchableOpacity style={styles.signInButton}>
+      <TouchableOpacity onPress={handleSubmit} style={styles.signInButton}>
         <Text style={styles.signInButtonText}>Continue</Text>
       </TouchableOpacity>
 
     </View>
+    </>
   );
 };
 

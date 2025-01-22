@@ -8,17 +8,18 @@ import UserHome from "../screens/userScreens/UserHome";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useLogin } from '../context/LoginProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Temp from '../components/Temp';
+import UserDetails from "../screens/caretakerScreens/UserDetails";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Onboarding1 from '../screens/caretakerScreens/Onboarding1';
 import Onboarding2 from '../screens/caretakerScreens/Onboarding2';
 import Onboarding3 from '../screens/caretakerScreens/Onboarding3';
+import Temp from "../components/Temp";
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
     const [loading,setLoading] = useState(true);
-    const {role,setRole,loggedIn,setCaretaker,setLoggedIn} = useLogin();
+    const {role,setRole,loggedIn,setCaretaker,setUser,setLoggedIn,isAssigned,setIsAssigned} = useLogin();
 
     GoogleSignin.configure({
         webClientId: "294068590748-cslueqdkqbn32u6im50h9fmp37t76jt2.apps.googleusercontent.com",
@@ -28,6 +29,7 @@ const AppNavigation = () => {
         storageAccess();
         setTimeout(()=>{
             setLoading(false);
+            
         },2000);
     },[])
 
@@ -35,11 +37,17 @@ const AppNavigation = () => {
             const tempLoggedIn = await AsyncStorage.getItem('loggedIn');
             const tempRole  = await AsyncStorage.getItem('role');
             const tempCaretakerDetails  = await AsyncStorage.getItem('caretaker');
+            const tempUserDetails  = await AsyncStorage.getItem('user');
+            const tempIsAssigned = await AsyncStorage.getItem('isAssigned');
             setCaretaker(JSON.parse(tempCaretakerDetails));
+            setUser(JSON.parse(tempUserDetails));
             setRole(tempRole);
             if(tempLoggedIn==="true"){
                 setLoggedIn(true);
             }
+            if(tempIsAssigned==="true"){
+                setIsAssigned(true);
+            } 
     }
 
     if (loading) {
@@ -62,16 +70,23 @@ const AppNavigation = () => {
                 </Stack.Navigator>
                 );
     }
-    if(role==="user"){
+    if(role==="caretaker" && !isAssigned){
         return (
-            <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="UserHome"  >
-                       <Stack.Screen name="UserHome" component={UserHome}/>
+            <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="UserDetails"  >
+                       <Stack.Screen name="UserDetails" component={UserDetails}/>
+            </Stack.Navigator>
+        );
+    }
+    if(role==="caretaker" && isAssigned){
+        return (
+            <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Temp"  >
+                       <Stack.Screen name="UserHome" component={Temp}/>
             </Stack.Navigator>
         );
     }
     return (
         <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Temp"  >
-                   <Stack.Screen name="Temp" component={Temp}/>
+                   <Stack.Screen name="UserDetails" component={Temp}/>
         </Stack.Navigator>
     );
   

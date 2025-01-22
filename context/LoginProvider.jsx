@@ -7,11 +7,22 @@ const LoginProvider = props => {
   const [code, setCode] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [caretaker, setCaretaker] = useState({
+    id:'',
     name: '',
     email: '',
-    gender: '',
     number: '',
   });
+  const [user,setUser] = useState({
+    id:"",
+    name:"",
+    gender:"",
+    dob:"",
+    email:"",
+    number:""
+  })
+
+  const [isAssigned,setIsAssigned] = useState(false);
+
   const [userCurrentLocation, setUserCurrentLocation] = useState([0, 0]);
   const [userHomeLocation, setUserHomeLocation] = useState([0, 0]);
   const [radius, setRadius] = useState(0.01);
@@ -32,6 +43,10 @@ const LoginProvider = props => {
         radius,
         setRadius,
         setUserHomeLocation,
+        user,
+        setUser,
+        isAssigned,
+        setIsAssigned
       }}>
       {props.children}
     </LoginContext.Provider>
