@@ -6,7 +6,11 @@ import {  View,
   StyleSheet,
   Image, } from 'react-native';
 
-const Onboarding3 = () => {
+const Onboarding3 = ({navigation}) => {
+
+  const handleNavigate = (screen)=>{
+    navigation.navigate(screen)
+  }
   return (
     <View style={styles.container}>
       <Image
@@ -15,10 +19,10 @@ const Onboarding3 = () => {
       />
       <Text style={styles.title}>Let's get started!</Text>
       <Text style={styles.subtitle}>Login to Track and Remind</Text>
-      <TouchableOpacity style={styles.signInButton}>
+      <TouchableOpacity onPress={()=>handleNavigate("CaretakerSignIn")} style={styles.signInButton}>
         <Text style={styles.signInButtonText}>Sign In</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.signUpButton}>
+      <TouchableOpacity onPress={()=>handleNavigate("CaretakerSignUp")} style={styles.signUpButton}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
       </TouchableOpacity>
     </View>

@@ -128,12 +128,12 @@ const CaretakerSignUp = ({navigation}) => {
         </View>
       </Modal>
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backContainer}>
-        <View>
-          <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
-        </View>
-      </TouchableOpacity>
-      <View style={styles.headerContainer}>
+      <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backContainer}>
+                    <View>
+                      <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+                    </View>
+                  </TouchableOpacity>
+                  <View style={styles.headerContainer}>
         
         <Text style={styles.title}>Sign Up</Text>
         {/* <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} /> */}
@@ -168,16 +168,12 @@ const CaretakerSignUp = ({navigation}) => {
           style={styles.input}
           placeholder="Enter your password"
           placeholderTextColor="#888"
-          secureTextEntry={!showPassword}
+          secureTextEntry
           value={currPassword}
           onChangeText={(text) => setCurrPassword(text)}
         />
-          <Image onPress={() => setShowPassword(!showPassword)}
-            source={
-              showPassword
-                ? require('../../assets/sms.png') // Icon when password is visible
-                : require('../../assets/eye-slash.png') // Icon when password is hidden
-            }
+          <Image
+            source={require('../../assets/eye-slash.png')}
             style={styles.passIcon}
           />
       </View>

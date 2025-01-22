@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
-const Onboarding1 = () => {
+const Onboarding1 = ({navigation}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.skipButton}>
@@ -22,7 +22,7 @@ const Onboarding1 = () => {
           <View style={styles.indicator} />
         </View>
 
-        <TouchableOpacity style={styles.nextButton}>
+        <TouchableOpacity onPress={()=>navigation.navigate("Onboarding2")} style={styles.nextButton}>
           <Image source={require('../../assets/nextButton.png')} style={styles.nextImg}/>
         </TouchableOpacity>
         </View>

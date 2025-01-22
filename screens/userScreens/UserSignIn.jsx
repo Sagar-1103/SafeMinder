@@ -73,18 +73,18 @@ const UserSignIn = ({navigation}) => {
         </View>
       </Modal>
       <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backContainer}>
+          <View>
+            <Image
+              source={require('../../assets/backButton.png')}
+              style={styles.backButton}
+            />
+          </View>
+        </TouchableOpacity>
         <View style={styles.headerContainer}>
-          <Image
-            source={require('../../assets/backButton.png')}
-            onPress={()=>navigation.goBack()}
-            style={styles.backButton}
-          />
-          
           <Text style={styles.title}>Sign In</Text>
-          <Image
-            source={require('../../assets/backButton.png')}
-            style={styles.backButtonNull}
-          />
         </View>
 
         <Text style={styles.InnerText}>
@@ -140,18 +140,25 @@ const styles = StyleSheet.create({
     color: '#888',
     fontSize: 17,
   },
+  backContainer: {
+    height: '10%',
+    top: '7%',
+    width: '50%',
+    // right: '80%'
+  },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '100%',
-    marginVertical: '10%',
-    marginBottom: '15%',
+    marginVertical: '-5%',
+    marginBottom: '15%'
   },
   backButton: {
-    width: '10%', // Use percentage width
-    height: '50%', // Use percentage height
-    marginLeft: '-5%',
+    width: '20%', // Use percentage width
+    height: '60%', // Use percentage height
+    marginLeft: '-50%',
+    marginTop: '10%',
   },
   backButtonNull: {
     width: '10%', // Use percentage width

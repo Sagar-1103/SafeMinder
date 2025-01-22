@@ -114,11 +114,16 @@ const CaretakerSignIn = ({navigation}) => {
         </View>
       </Modal>
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
+      <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backContainer}>
+              <View>
                 <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
-                <Text style={styles.title}>Sign In</Text>
-                <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} />
               </View>
+            </TouchableOpacity>
+            <View style={styles.headerContainer}>
+              
+              <Text style={styles.title}>Sign In</Text>
+              {/* <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} /> */}
+            </View>
 
         <View style={styles.emailInputContainer}>
           <Image
@@ -192,6 +197,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: '10%', // Use percentage padding
     backgroundColor: '#fff',
   },
+  backContainer: {
+    height: '10%',
+    top: '7%',
+    width: '50%',
+    // right: '80%'
+  },
   title: {
     fontSize: 32, // Use percentage font size
     color: '#000000',
@@ -212,9 +223,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '100%',
-    marginVertical: '10%',
+    marginVertical: '-5%',
     marginBottom: '15%'
   },
   inputContainer: {

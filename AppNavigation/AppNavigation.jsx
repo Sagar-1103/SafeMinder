@@ -10,6 +10,9 @@ import { useLogin } from '../context/LoginProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Temp from '../components/Temp';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import Onboarding1 from '../screens/caretakerScreens/Onboarding1';
+import Onboarding2 from '../screens/caretakerScreens/Onboarding2';
+import Onboarding3 from '../screens/caretakerScreens/Onboarding3';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +54,9 @@ const AppNavigation = () => {
                 <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="RoleScreen"  >
                             <Stack.Screen name="RoleScreen" component={RoleScreen}/>
                             <Stack.Screen name="UserSignIn" component={UserSignIn}/>
+                            <Stack.Screen name="Onboarding1" component={Onboarding1}/>
+                            <Stack.Screen name="Onboarding2" component={Onboarding2}/>
+                            <Stack.Screen name="Onboarding3" component={Onboarding3}/>
                             <Stack.Screen name="CaretakerSignUp" component={CaretakerSignUp}/>
                             <Stack.Screen name="CaretakerSignIn" component={CaretakerSignIn}/>
                 </Stack.Navigator>
