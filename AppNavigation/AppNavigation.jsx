@@ -14,6 +14,8 @@ import Onboarding1 from '../screens/caretakerScreens/Onboarding1';
 import Onboarding2 from '../screens/caretakerScreens/Onboarding2';
 import Onboarding3 from '../screens/caretakerScreens/Onboarding3';
 import Temp from "../components/Temp";
+import SetHomeLocation from '../screens/caretakerScreens/SetHomeLocation';
+import SetSpeedDial from '../screens/caretakerScreens/SetSpeedDial';
 
 const Stack = createNativeStackNavigator();
 
@@ -79,8 +81,9 @@ const AppNavigation = () => {
     }
     if(role==="caretaker" && isAssigned){
         return (
-            <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Temp"  >
-                       <Stack.Screen name="UserHome" component={Temp}/>
+            <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="SetHomeLocation"  >
+                       <Stack.Screen name="SetHomeLocation" component={SetHomeLocation}/>
+                       <Stack.Screen name="SetSpeedDial" component={SetSpeedDial}/>
             </Stack.Navigator>
         );
     }
