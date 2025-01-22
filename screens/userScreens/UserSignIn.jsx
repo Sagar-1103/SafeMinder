@@ -73,7 +73,19 @@ const UserSignIn = ({navigation}) => {
         </View>
       </Modal>
       <View style={styles.container}>
-        <Text style={styles.title}>Sign In</Text>
+        <View style={styles.headerContainer}>
+          <Image
+            source={require('../../assets/backButton.png')}
+            onPress={()=>navigation.goBack()}
+            style={styles.backButton}
+          />
+          
+          <Text style={styles.title}>Sign In</Text>
+          <Image
+            source={require('../../assets/backButton.png')}
+            style={styles.backButtonNull}
+          />
+        </View>
 
         <Text style={styles.InnerText}>
           Ask your caretaker to provide pairing code
@@ -134,17 +146,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     marginVertical: '10%',
-    marginBottom: '15%'
+    marginBottom: '15%',
   },
   backButton: {
     width: '10%', // Use percentage width
     height: '50%', // Use percentage height
-    marginLeft: '-5%'
+    marginLeft: '-5%',
   },
   backButtonNull: {
     width: '10%', // Use percentage width
     height: '50%', // Use percentage height
-    opacity: 0
+    opacity: 0,
   },
   inputIcon: {
     width: '10%', // Use percentage width
@@ -200,10 +212,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     width: 250,
   },
-  buttonGroup : {
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
+  buttonGroup: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   closeButton: {
     marginTop: 10,
@@ -211,7 +223,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    marginHorizontal:20
+    marginHorizontal: 20,
   },
   closeButtonText: {
     color: '#FFFFFF',

@@ -114,7 +114,11 @@ const CaretakerSignIn = ({navigation}) => {
         </View>
       </Modal>
       <View style={styles.container}>
-        <Text style={styles.title}>Sign In</Text>
+        <View style={styles.headerContainer}>
+                <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+                <Text style={styles.title}>Sign In</Text>
+                <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} />
+              </View>
 
         <View style={styles.emailInputContainer}>
           <Image
@@ -204,6 +208,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingVertical: '1.2%',
     paddingHorizontal: '5%',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: '10%',
+    marginBottom: '15%'
   },
   inputContainer: {
     flexDirection: 'row',
