@@ -8,32 +8,35 @@ import {
   Image,
 } from 'react-native';
 
-const SignIn = () => {
+const Onboarding1 = () => {
   const [code, setCode] = useState('');
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
               <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} />
-              <Text style={styles.skip}>skip</Text>
+              <Text style={styles.skip}>Skip</Text>
             </View>
       
-      <Text style={styles.InnerText}>Ask your caretaker to provide pairing code</Text>
+            <Image
+              source={require('../../assets/Onboarding1.png')} 
+              style={styles.centerImg}
+            />
+            <View style={styles.footerContainer}>    
+            <Text style={styles.footer}  >Be their go to companion.</Text>
+            </View>
+            <View style={styles.onboardNav}>
+            <Image source={require('../../assets/OnboardingMarker1.png')}/>
+            <Image source={require('../../assets/nextButton.png')} />
+            </View>
 
-      <View style={styles.emailInputContainer}>
-        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#888"
-          placeholder="Enter your pairing code"
-          value={code}
-          onChangeText={(text) => setCode(text)}
-        />
-      </View>
+            
+        <View>
 
-      <TouchableOpacity style={styles.signInButton}>
-        <Text style={styles.signInButtonText}>Sign In</Text>
-      </TouchableOpacity>
+        </View>
+
+
+      
     </View>
   );
 };
@@ -46,8 +49,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     
   },
+  footer: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: '37%',
+    color: '#000000',
+    fontFamily: 'Poppins',
+    textAlign: 'left',
+    width: '50%'
+  },
   skip: {
-    fontSize: 12, // Use percentage font size
+    fontSize: 16, // Use percentage font size
     textAlign: 'center',
   },
   emailInputContainer: {
@@ -60,6 +72,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: '1.2%',
     paddingHorizontal: '5%',
+  },
+  centerImg: {
+    width: '110%',
+    height: undefined,
+    aspectRatio: 0.98,
+    marginTop: '30%'
   },
   input: {
     flex: 1,
@@ -75,10 +93,21 @@ const styles = StyleSheet.create({
     marginVertical: '10%',
     marginBottom: '15%'
   },
-  backButton: {
-    width: '10%', // Use percentage width
-    height: '50%', // Use percentage height
-    marginLeft: '-5%'
+  footerContainer: {
+    flexDirection: 'column',
+    width: '100%',
+    marginVertical: '10%',
+    marginBottom: '15%',
+  },
+  onboardNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  nextButtonImg: {
+    height: '45%',
+    width: '75%',
+    flex:1
   },
   backButtonNull: {
     width: '10%', // Use percentage width
@@ -90,19 +119,6 @@ const styles = StyleSheet.create({
     height: '60%', // Use percentage height
     marginHorizontal: '4%',
   },
-  signInButton: {
-    width: '100%',
-    backgroundColor: 'rgb(233,108,56)', // Red color
-    padding: '6%', // Use percentage padding
-    borderRadius: 30,
-    marginTop: '4%', // Use percentage margin
-  },
-  signInButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 19,
-    textAlign: 'center',
-  },
   InnerText: {
     marginTop: '12%',
     marginBottom: '22%',
@@ -113,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignIn;
+export default Onboarding1;
