@@ -22,6 +22,7 @@ const LoginProvider = props => {
     number:""
   })
 
+  const [contacts,setContacts] = useState([]);
   const [isAssigned,setIsAssigned] = useState(false);
 
   const [userCurrentLocation, setUserCurrentLocation] = useState([0, 0]);
@@ -49,7 +50,9 @@ const LoginProvider = props => {
         isAssigned,
         setIsAssigned,
         process,
-        setProcess
+        setProcess,
+        contacts,
+        setContacts
       }}>
       {props.children}
     </LoginContext.Provider>

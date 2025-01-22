@@ -22,7 +22,7 @@ Mapbox.setAccessToken(
 
 const SetHomeLocation = ({navigation}) => {
   const [tempLocation, setTempLocation] = useState('');
-  const [coordinates, setCoordinates] = useState([0,0]);
+  const [coordinates, setCoordinates] = useState([75, 15]);
   const [modalVisible, setModalVisible] = useState(false); 
   const [recommendations, setRecommendations] = useState([]);
   const [modalMessage, setModalMessage] = useState({
@@ -90,9 +90,15 @@ const SetHomeLocation = ({navigation}) => {
     }
 };
 
-  useEffect(()=>{
-    setCoordinates(userHomeLocation);
-  },[coordinates])
+useEffect(() => {
+  const fetchLocation = async () => {
+    const storedLocation = await AsyncStorage.getItem('userHomeLocation');
+    if (storedLocation) {
+      setCoordinates(JSON.parse(storedLocation));
+    }
+  };
+  fetchLocation();
+}, []);
 
   return (
     <>

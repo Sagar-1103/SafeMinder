@@ -24,7 +24,7 @@ const UserCodeScreen = ({navigation}) => {
   }
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backContainer}>
+      <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backContainer}>
         <View>
             <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
         </View>

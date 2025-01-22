@@ -108,6 +108,7 @@ const UserDetails = ({navigation}) => {
           style={styles.input}
           placeholderTextColor="#888"
           placeholder="Enter user email"
+          keyboardType='email-address'
           value={tempUserEmail}
           onChangeText={(text) => setTempUserEmail(text)}
         />
@@ -142,6 +143,7 @@ const UserDetails = ({navigation}) => {
           placeholderTextColor="#888"
           placeholder="Enter your phone number"
           value={tempcaretakerPhNo}
+          keyboardType='numeric'
           onChangeText={(text) => setTempcaretakerPhNo(text)}
         />
       </View>      
@@ -153,6 +155,7 @@ const UserDetails = ({navigation}) => {
           placeholder="Enter user phone number"
           placeholderTextColor="#888"
           value={userphno}
+          keyboardType="numeric"
           onChangeText={(text) => setUserphno(text)}
         />
       </View>
