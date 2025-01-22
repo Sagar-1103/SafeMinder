@@ -7,7 +7,7 @@ import CareTakerSelectionProfile from '../../assets/CareTakerSelectionProfile.pn
 
 const RoleScreen = ({navigation}) => {
   const handleSubmit = (temp)=>{
-    navigation.navigate(temp==="user"?"UserSignIn":"CaretakerSignUp");
+    navigation.navigate(temp==="user"?"UserSignIn":"CaretakerSignIn");
   }
   return (
     <View style={styles.container}>

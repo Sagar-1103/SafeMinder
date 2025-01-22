@@ -184,7 +184,7 @@ const CaretakerSignUp = ({navigation}) => {
 
       <Text onPress={()=>navigation.navigate("CaretakerSignIn")} style={styles.signUpText}>Already have an account? <Text style={styles.signUpLinkText}>Sign in</Text></Text>
 
-      <Text style={styles.orText}>------------------------------      OR       -------------------------------</Text>
+      <Text style={styles.orText}>------------------------------ OR -------------------------------</Text>
 
       <TouchableOpacity  onPress={() => handleGoogleSignIn().then(() => console.log('Signed in with Google!'))} style={styles.googleButton}>
         <Image source={require('../../assets/googleLogo.png')} style={styles.googleIcon} />
