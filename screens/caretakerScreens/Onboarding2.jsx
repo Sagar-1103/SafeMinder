@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 const Onboarding2 = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.skipButton}>
+      <TouchableOpacity onPress={()=>navigation.navigate("Onboarding3")} style={styles.skipButton}>
         <Text style={styles.skipText}>Skip</Text>
       </TouchableOpacity>
 

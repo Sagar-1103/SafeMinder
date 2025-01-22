@@ -14,10 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const CaretakerSignUp = ({navigation}) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [currPassword, setCurrPassword] = useState('');
-  const [password, setPassword] = useState('');
+  const [tempName, setTempName] = useState('');
+  const [tempEmail, setTempEmail] = useState('');
+  const [tempCurrPassword, setTempCurrPassword] = useState('');
+  const [tempPassword, setTempPassword] = useState('');
   const {setCaretaker,setRole,setLoggedIn} = useLogin();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState({
@@ -57,7 +57,7 @@ const CaretakerSignUp = ({navigation}) => {
 
   const handleSubmit = async()=>{
     try {
-      if(!email.trim() || !password.trim() || !name.trim() || !currPassword.trim() ){
+      if(!tempEmail.trim() || !tempPassword.trim() || !tempName.trim() || !tempCurrPassword.trim() ){
         setModalMessage({
           title: 'Incomplete Information',
           description: 'Please ensure all fields are filled in correctly before proceeding.',
@@ -65,21 +65,21 @@ const CaretakerSignUp = ({navigation}) => {
         setModalVisible(true);
          return;
       }
-      if (password!==currPassword) {
+      if (tempPassword!==tempCurrPassword) {
         setModalMessage({
           title: 'Password Mismatch',
           description: 'The password and confirm password fields do not match. Please re-enter them.',
         });
         setModalVisible(true);
-        setCurrPassword('');
-        setPassword('');
+        setTempCurrPassword('');
+        setTempPassword('');
         return;
       }
 
-      console.log(name,email,currPassword,password);
-      await auth().createUserWithEmailAndPassword(email,password);
+      console.log(tempName,tempEmail,tempCurrPassword,tempPassword);
+      await auth().createUserWithEmailAndPassword(tempEmail,tempPassword);
 
-      const details = {name,email,gender:"",number:""}
+      const details = {tempName,tempEmail,gender:"",number:""}
       setCaretaker(details);
       await AsyncStorage.setItem('loggedIn', "true");
       setLoggedIn(true);
@@ -146,8 +146,8 @@ const CaretakerSignUp = ({navigation}) => {
           style={styles.input}
           placeholderTextColor="#888"
           placeholder="Enter your name"
-          value={name}
-          onChangeText={(text) => setName(text)}
+          value={tempName}
+          onChangeText={(text) => setTempName(text)}
         />
       </View>
 
@@ -157,8 +157,8 @@ const CaretakerSignUp = ({navigation}) => {
           style={styles.input}
           placeholderTextColor="#888"
           placeholder="Enter your email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          value={tempEmail}
+          onChangeText={(text) => setTempEmail(text)}
         />
       </View>
 
@@ -169,8 +169,8 @@ const CaretakerSignUp = ({navigation}) => {
           placeholder="Enter your password"
           placeholderTextColor="#888"
           secureTextEntry
-          value={currPassword}
-          onChangeText={(text) => setCurrPassword(text)}
+          value={tempPassword}
+          onChangeText={(text) => setTempPassword(text)}
         />
           <Image
             source={require('../../assets/eye-slash.png')}
@@ -185,8 +185,8 @@ const CaretakerSignUp = ({navigation}) => {
           placeholder="Enter your password"
           placeholderTextColor="#888"
           secureTextEntry
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+          value={tempCurrPassword}
+          onChangeText={(text) => setTempCurrPassword(text)}
         />
         <Image source={require('../../assets/eye-slash.png')} style={styles.inputIcon} />
       </View>
