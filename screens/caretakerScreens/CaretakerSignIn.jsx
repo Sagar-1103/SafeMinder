@@ -192,9 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 32, // Use percentage font size
     color: '#000000',
     textAlign: 'center',
-    fontWeight: 'bold',
-    marginTop: '20%',
-    marginBottom: '12%', // Use percentage margin
+    fontWeight: 'bold', // Use percentage margin
   },
   emailInputContainer: {
     flexDirection: 'row',
@@ -243,6 +241,24 @@ const styles = StyleSheet.create({
     padding: '6%', // Use percentage padding
     borderRadius: 32,
     marginTop: '4%', // Use percentage margin
+  },
+  backButton: {
+    width: '10%', // Use percentage width
+    height: '50%', // Use percentage height
+    marginLeft: '-5%'
+  },
+  backButtonNull: {
+    width: '10%', // Use percentage width
+    height: '50%', // Use percentage height
+    opacity: 0
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: '10%',
+    marginBottom: '15%'
   },
   signInButtonText: {
     color: '#fff',
