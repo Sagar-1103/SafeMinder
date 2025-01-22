@@ -255,9 +255,10 @@ const styles = StyleSheet.create({
     marginTop: '4%', // Use percentage margin
   },
   backButton: {
-    width: '10%', // Use percentage width
-    height: '50%', // Use percentage height
-    marginLeft: '-5%'
+    width: '20%', // Use percentage width
+    height: '60%', // Use percentage height
+    marginLeft: '-5%',
+    marginTop: '7.5%',
   },
   backButtonNull: {
     width: '10%', // Use percentage width
@@ -267,9 +268,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '100%',
-    marginVertical: '10%',
+    marginVertical: '-5%',
     marginBottom: '15%'
   },
   signInButtonText: {

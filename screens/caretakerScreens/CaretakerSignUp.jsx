@@ -128,10 +128,15 @@ const CaretakerSignUp = ({navigation}) => {
         </View>
       </Modal>
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backContainer}>
+        <View>
+          <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+        </View>
+      </TouchableOpacity>
       <View style={styles.headerContainer}>
-        <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+        
         <Text style={styles.title}>Sign Up</Text>
-        <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} />
+        {/* <Image source={require('../../assets/backButton.png')} style={styles.backButtonNull} /> */}
       </View>
       
 
@@ -163,11 +168,18 @@ const CaretakerSignUp = ({navigation}) => {
           style={styles.input}
           placeholder="Enter your password"
           placeholderTextColor="#888"
-          secureTextEntry
+          secureTextEntry={!showPassword}
           value={currPassword}
           onChangeText={(text) => setCurrPassword(text)}
         />
-        <Image source={require('../../assets/eye-slash.png')} style={styles.passIcon} />
+          <Image onPress={() => setShowPassword(!showPassword)}
+            source={
+              showPassword
+                ? require('../../assets/sms.png') // Icon when password is visible
+                : require('../../assets/eye-slash.png') // Icon when password is hidden
+            }
+            style={styles.passIcon}
+          />
       </View>
 
       <View style={styles.inputContainer}>
@@ -180,7 +192,7 @@ const CaretakerSignUp = ({navigation}) => {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
-        <Image source={require('../../assets/eye-slash.png')} style={styles.passIcon} />
+        <Image source={require('../../assets/eye-slash.png')} style={styles.inputIcon} />
       </View>
 
       <TouchableOpacity onPress={handleSubmit} style={styles.signInButton}>
@@ -214,6 +226,12 @@ const styles = StyleSheet.create({
     
     fontWeight: 'bold',
   },
+  backContainer: {
+    height: '10%',
+    top: '7%',
+    width: '50%',
+    // right: '80%'
+  },
   emailInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -239,9 +257,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '100%',
-    marginVertical: '10%',
+    marginTop: '-8%',
     marginBottom: '15%'
   },
   input: {
@@ -256,9 +274,10 @@ const styles = StyleSheet.create({
     marginHorizontal: '4%',
   },
   backButton: {
-    width: '10%', // Use percentage width
-    height: '50%', // Use percentage height
-    marginLeft: '-5%'
+    width: '25%', // Use percentage width
+    height: '60%', // Use percentage height
+    marginLeft: '-6%',
+    marginTop: '2.5%'
   },
   backButtonNull: {
     width: '10%', // Use percentage width
@@ -267,7 +286,7 @@ const styles = StyleSheet.create({
   },
   passIcon: {
     width: '10%', 
-    height: '60%',
+    height: '50%',
   },
   signInButton: {
     backgroundColor: 'rgb(233,108,56)', // Red color
