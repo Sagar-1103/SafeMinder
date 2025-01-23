@@ -19,7 +19,7 @@ const CaretakerSignUp = ({navigation}) => {
   const [tempEmail, setTempEmail] = useState('');
   const [tempCurrPassword, setTempCurrPassword] = useState('');
   const [tempPassword, setTempPassword] = useState('');
-  const {setLoggedIn, setRole, setCaretaker,setUser,setProcess,setIsAssigned} = useLogin();
+  const {setLoggedIn, setRole, setCaretaker,setUserHomeLocation,setUser,setProcess,setIsAssigned} = useLogin();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     title: '',
@@ -68,6 +68,9 @@ const CaretakerSignUp = ({navigation}) => {
         setLoggedIn(true);
         await AsyncStorage.setItem('caretaker', JSON.stringify(caretakerData));
         setCaretaker(caretakerData);
+        await AsyncStorage.setItem('userHomeLocation', JSON.stringify(caretakerData?.userHomeCoordinates));
+        setUserHomeLocation(caretakerData?.userHomeCoordinates);
+        
       }
       else {
       const details = {name: displayName, email: email, gender: '', number: ''};

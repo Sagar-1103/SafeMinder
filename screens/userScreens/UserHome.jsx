@@ -1,8 +1,23 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
+import Logo from "../../assets/safeMinderLogo.png"
 
-const UserHome = () => {
+const UserHome = ({navigation,startAllBackgroundServices,stopAllBackgroundServices}) => {
+  const [serviceStatus,setServiceStatus] = useState(false);
+
+  const handleServices = async()=>{
+    if (!serviceStatus) {
+        setServiceStatus(true);
+        startAllBackgroundServices();
+        console.log("Services Started");
+      }
+      else {
+        setServiceStatus(false);
+        stopAllBackgroundServices();
+        console.log("Services Closed");
+    }
+  }
   return (
     <LinearGradient
       colors={['rgb(170, 170, 170)', 'rgba(255,255,255,1)']}
@@ -21,7 +36,7 @@ const UserHome = () => {
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
-            <TouchableOpacity style={styles.touchable}>
+            <TouchableOpacity onLongPress={handleServices} delayLongPress={2000} style={styles.touchable}>
               <Text style={styles.iconText}>Settings</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -73,7 +88,7 @@ const UserHome = () => {
           >
             <TouchableOpacity style={styles.touchable}>
               <Image
-                source={{ uri: 'image_url_1' }}
+                source={Logo}
                 style={styles.profileImage}
               />
               <Text style={styles.iconText}>person1</Text>
@@ -88,7 +103,7 @@ const UserHome = () => {
           >
             <TouchableOpacity style={styles.touchable}>
               <Image
-                source={{ uri: 'image_url_2' }}
+                source={Logo}
                 style={styles.profileImage}
               />
               <Text style={styles.iconText}>person2</Text>

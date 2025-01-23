@@ -9,6 +9,7 @@ import {
 const FitComponent = () => {
   const [totalWeight, setTotalWeight] = useState(null);
   const [totalSteps, setTotalSteps] = useState(null);
+  const [averageHeartRate, setAverageHeartRate] = useState(null);
 
   const initializeHealthConnect = async () => {
     const isInitialized = await initialize();
@@ -31,11 +32,11 @@ const FitComponent = () => {
         timeRangeFilter: {
           operator: 'between',
           startTime: '2025-01-20T00:00:00.000Z',
-          endTime: '2025-01-21T23:59:59.999Z', 
+          endTime: '2025-01-21T23:59:59.999Z',
         },
       });
 
-      const totalSteps = records.reduce((total, record) => total + record.count,0);
+      const totalSteps = records.reduce((total, record) => total + record.count, 0);
       setTotalSteps(totalSteps);
 
       console.log(`Total steps from January 20, 2025, to January 21, 2025: ${totalSteps}`);
@@ -54,12 +55,32 @@ const FitComponent = () => {
         },
       });
 
-      const totalWeight = records.reduce((total, record) => total + record.weight.inKilograms,0);
+      const totalWeight = records.reduce((total, record) => total + record.weight.inKilograms, 0);
       const averageWeight = totalWeight / records.length;
       setTotalWeight(averageWeight.toFixed(2));
       console.log(`Average weight: ${averageWeight.toFixed(2)} kg`);
     } catch (error) {
       console.error('Error reading weight data:', error);
+    }
+  };
+
+  const getHeartRate = async () => {
+    try {
+      const {records} = await readRecords('HeartRate', {
+        timeRangeFilter: {
+          operator: 'between',
+          startTime: '2025-01-20T00:00:00.000Z',
+          endTime: '2025-01-22T23:59:59.999Z',
+        },
+      });
+
+      const totalHeartRate = records.reduce((total, record) => total + record.bpm, 0);
+      const averageHeartRate = totalHeartRate / records.length;
+      setAverageHeartRate(averageHeartRate.toFixed(2));
+
+      console.log(`Average heart rate: ${averageHeartRate.toFixed(2)} bpm`);
+    } catch (error) {
+      console.error('Error reading heart rate data:', error);
     }
   };
 
@@ -75,19 +96,25 @@ const FitComponent = () => {
         <TouchableOpacity onPress={getTotalSteps} style={styles.button}>
           <Text style={styles.buttonText}>Get Steps</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={getHeartRate} style={styles.button}>
+          <Text style={styles.buttonText}>Get Heart Rate</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.resultContainer}>
         {totalWeight !== null && (
           <View style={styles.resultCard}>
-            <Text style={styles.resultText}>
-              Total Weight: {totalWeight} kg
-            </Text>
+            <Text style={styles.resultText}>Total Weight: {totalWeight} kg</Text>
           </View>
         )}
         {totalSteps !== null && (
           <View style={styles.resultCard}>
             <Text style={styles.resultText}>Total Steps: {totalSteps}</Text>
+          </View>
+        )}
+        {averageHeartRate !== null && (
+          <View style={styles.resultCard}>
+            <Text style={styles.resultText}>Average Heart Rate: {averageHeartRate} bpm</Text>
           </View>
         )}
       </View>

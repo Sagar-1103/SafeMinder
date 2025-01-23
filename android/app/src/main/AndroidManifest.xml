@@ -65,5 +65,6 @@
       </intent-filter>
     </activity-alias>
     <service android:name="com.asterinet.react.bgactions.RNBackgroundActionsTask" />
+    <service android:name="com.davidmartos96.backgroundactions.BackgroundActionsTask" />
     </application>
 </manifest>

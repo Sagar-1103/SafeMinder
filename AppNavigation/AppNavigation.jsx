@@ -4,7 +4,6 @@ import RoleScreen from "../screens/commonScreens/RoleScreen";
 import UserSignIn from "../screens/userScreens/UserSignIn";
 import CaretakerSignUp from "../screens/caretakerScreens/CaretakerSignUp";
 import CaretakerSignIn from "../screens/caretakerScreens/CaretakerSignIn";
-import UserHome from "../screens/userScreens/UserHome";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useLogin } from '../context/LoginProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,6 +17,7 @@ import SetHomeLocation from '../screens/caretakerScreens/SetHomeLocation';
 import SetSpeedDial from '../screens/caretakerScreens/SetSpeedDial';
 import UserCodeScreen from '../screens/caretakerScreens/UserCodeScreen';
 import TabNavigation from './TabNavigation';
+import BackgroundTasks from '../components/BackgroundTasks';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,10 +46,10 @@ const AppNavigation = () => {
             const tempIsAssigned = await AsyncStorage.getItem('isAssigned');
             const tempUserHomeCoordinates = await AsyncStorage.getItem('userHomeLocation');
             const tempRadius = await AsyncStorage.getItem('radius');
-            setRadius(tempRadius);
+            console.log(tempRadius);
             const tempProcess = await AsyncStorage.getItem('process');
             const tempContacts = await AsyncStorage.getItem('contacts');
-            const tempUserCurrentLocation = await AsyncStorage.getItem('userCurrentLocation');
+            const tempUserCurrentLocation = await AsyncStorage.getItem('userCurrentLocation');            
             setUserCurrentLocation(JSON.parse(tempUserCurrentLocation));
             setContacts(JSON.parse(tempContacts));
             setCaretaker(JSON.parse(tempCaretakerDetails));
@@ -109,8 +109,9 @@ const AppNavigation = () => {
     }
     if(role==="user"){
         return (
-                <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Temp"  >
-                           <Stack.Screen name="Temp" component={Temp}/>
+                <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="BackgroundTasks"  >
+                        <Stack.Screen name="BackgroundTasks" component={BackgroundTasks}/>
+                        <Stack.Screen name="Temp" component={Temp}/>
                 </Stack.Navigator>
         );
     }

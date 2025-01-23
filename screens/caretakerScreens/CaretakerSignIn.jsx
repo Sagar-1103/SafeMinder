@@ -18,7 +18,7 @@ import firestore from '@react-native-firebase/firestore';
 const CaretakerSignIn = ({navigation}) => {
   const [tempEmail, setTempEmail] = useState('');
   const [tempPassword, setTempPassword] = useState('');
-  const {setLoggedIn, setRole, setCaretaker,setUser,setProcess,setIsAssigned} = useLogin();
+  const {setLoggedIn, setRole, setCaretaker,setUser,setUserHomeLocation,setProcess,setIsAssigned} = useLogin();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     title: '',
@@ -67,6 +67,8 @@ const CaretakerSignIn = ({navigation}) => {
         setLoggedIn(true);
         await AsyncStorage.setItem('caretaker', JSON.stringify(caretakerData));
         setCaretaker(caretakerData);
+        await AsyncStorage.setItem('userHomeLocation', JSON.stringify(userData?.userHomeCoordinates));
+        setUserHomeLocation(userData?.userHomeCoordinates);
       }
       else {
       const details = {name: displayName, email: email, gender: '', number: ''};
