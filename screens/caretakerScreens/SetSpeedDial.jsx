@@ -142,7 +142,7 @@ const SetSpeedDial = ({navigation}) => {
         />
       </View>
       <TouchableOpacity onPress={handleSubmit} style={styles.signInButton}>
-        <Text style={styles.signInButtonText}>Finish</Text>
+        <Text style={styles.signInButtonText}>Continue</Text>
       </TouchableOpacity>
     </View>
     </>
