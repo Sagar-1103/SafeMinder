@@ -3,10 +3,6 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import StepsBlock from '../../components/StepsBlock';
 import HeartRateBlock from '../../components/HeartRateBlock';
 import OxygenLevelBlock from '../../components/OxygenLevelBlock';
-// import HeartRateBlock from './HeartRateBlock';
-// import CaloriesBlock from './CaloriesBlock';
-// import DistanceBlock from './DistanceBlock';
-// import OxygenBlock from './OxygenBlock';
 
 const ReportsPage = () => {
   return (
