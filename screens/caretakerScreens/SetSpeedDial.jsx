@@ -332,7 +332,7 @@ const SetSpeedDial = () => {
 
 
         <TouchableOpacity style={styles.signInButton}>
-          <Text style={styles.signInButtonText}>Sign In</Text>
+          <Text style={styles.signInButtonText}>Continue</Text>
         </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
