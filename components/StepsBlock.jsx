@@ -1,12 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import PieChart from 'react-native-pie-chart'
+
+const series = [
+  {value: 4000, color: rgb(229, 86, 25)},
+  {value: 2000, color: rgb(239, 170, 141)}
+]
 
 const StepsBlock = ({ steps, distance, calories }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Steps</Text>
       <View style={styles.innerContainer}>
-        <Image source={require('../assets/lock.png')} style={styles.icon} />
+        <PieChart widthAndHeight={'45%'} series={series} cover={0.45} />
         <View>
           <Text style={styles.detail}>Number of Steps: </Text>
           <Text style={styles.detailValue}>{steps || '0'}</Text>
