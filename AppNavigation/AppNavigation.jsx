@@ -17,7 +17,7 @@ import Temp from "../components/Temp";
 import SetHomeLocation from '../screens/caretakerScreens/SetHomeLocation';
 import SetSpeedDial from '../screens/caretakerScreens/SetSpeedDial';
 import UserCodeScreen from '../screens/caretakerScreens/UserCodeScreen';
-import { Text, View } from 'react-native';
+import TabNavigation from './TabNavigation';
 
 const Stack = createNativeStackNavigator();
 
@@ -101,11 +101,7 @@ const AppNavigation = () => {
             );
         }
     if(role==="caretaker" && isAssigned && process){
-        return (
-                <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Temp"  >
-                           <Stack.Screen name="Temp" component={Temp}/>
-                </Stack.Navigator>
-        );
+        return <TabNavigation/>;
     }
     if(role==="user"){
         return (
