@@ -45,6 +45,8 @@ const AppNavigation = () => {
             const tempUserDetails  = await AsyncStorage.getItem('user');
             const tempIsAssigned = await AsyncStorage.getItem('isAssigned');
             const tempUserHomeCoordinates = await AsyncStorage.getItem('userHomeLocation');
+            console.log(tempUserHomeCoordinates);
+            
             const tempProcess = await AsyncStorage.getItem('process');
             const tempContacts = await AsyncStorage.getItem('contacts');
             setContacts(JSON.parse(tempContacts));

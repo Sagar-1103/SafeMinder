@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import Mapbox, { MapView, Camera, PointAnnotation } from '@rnmapbox/maps';
 import { useLogin } from '../context/LoginProvider';
 
@@ -7,30 +7,41 @@ Mapbox.setAccessToken('pk.eyJ1IjoiY29kZXNlZWtlcnMiLCJhIjoiY2x1ZmRidHkzMGtxMjJrcm
 
 
 const Maps = () => {
-  const { userHomeLocation } = useLogin();
+  const { userHomeLocation,user } = useLogin();
+  const [tempUserHomeCoordinates,setTempUserHomeCoordinates] = useState([0,0]);
+  console.log(user.userHomeCoordinates);
   
-  const handleSubmit = () => {
-    //
-    //
-    //
-    console.log("Button clicked");
-  };
+  useEffect(()=>{
+
+  },[]);
 
   return (
     <View style={styles.container}>
       <MapView style={styles.map}>
         <Camera
           zoomLevel={10}
-          centerCoordinate={userHomeLocation}
+          centerCoordinate={tempUserHomeCoordinates}
         />
         <PointAnnotation
           id="pin"
-          coordinate={userHomeLocation}
-        />
+          coordinate={tempUserHomeCoordinates}
+        >
+          {/* <Image source={require('../assets/homePin.png')}/> */}
+        </PointAnnotation>
+        <PointAnnotation
+          id="pin"
+          coordinate={tempUserHomeCoordinates}
+        >
+          {/* <Image source={require('../assets/homePin.png')}/> */}
+        </PointAnnotation>
       </MapView>
-
-      {/* Floating Sign In Button */}
-      <TouchableOpacity onPress={handleSubmit} style={styles.NavigateButton}>
+      <TouchableOpacity style={[styles.centerButton, styles.settingsButton]}>
+        <Text style={styles.settingsText}>Set Center</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.radiusButton, styles.settingsButton]}>
+        <Text style={styles.settingsText}>Set Radius</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.NavigateButton}>
         <Text style={styles.NavigateButtonText}>Navigate</Text>
       </TouchableOpacity>
     </View>
@@ -56,7 +67,29 @@ const styles = StyleSheet.create({
     zIndex: 999,
     justifyContent: 'center',
     width: '70%',
+  },
+  settingsButton: {
+    position: 'absolute',
+    paddingVertical:'8%',
+    zIndex: 998,
+    justifyContent: 'center',
+    width: '25%',
+    borderRadius: 7,
+    right: '2%',
+  },
+  settingsText: {
+    color: 'white',
+    fontSize: 14,
+    textAlign: 'center',
+  },
 
+  centerButton: {
+    backgroundColor: 'rgb(0, 92, 23)',
+    top: '5%'
+  },
+  radiusButton: {
+    backgroundColor: 'rgb(0, 87, 158)',
+    top: '11%'
   },
   NavigateButtonText: {
     color: 'white',
