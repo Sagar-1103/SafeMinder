@@ -75,6 +75,8 @@ const SetHomeLocation = ({navigation}) => {
       setUserHomeLocation(coordinates);
       const res1 = await firestore().collection('Caretakers').doc(caretaker.id).set({userHomeCoordinates:coordinates}, { merge: true });
       const res2 = await firestore().collection('Users').doc(caretaker.id).set({userHomeCoordinates:coordinates}, { merge: true });
+      const res3 = await firestore().collection('Caretakers').doc(caretaker.id).set({userCurrentCoordinates:[0,0]}, { merge: true });
+      const res4 = await firestore().collection('Users').doc(caretaker.id).set({userCurrentCoordinates:[0,0]}, { merge: true });
       await AsyncStorage.setItem('userHomeLocation', JSON.stringify(coordinates));
       navigation.navigate('SetSpeedDial');
     } catch (error) {

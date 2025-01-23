@@ -14,7 +14,7 @@ const Maps = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [locationToggle,setLocationToggle] = useState(false);
   const [coordinates, setCoordinates] = useState([]);
-  const [tempUserCurrentCoordinates] = useState([0,0]);
+  const [tempUserCurrentCoordinates,setTempUserCurrentCoordinates] = useState([0,0]);
 
   const handleMapPress = async(event) => {
     setTempUserHomeCoordinates(event.geometry.coordinates);
@@ -34,6 +34,8 @@ const Maps = () => {
   }
   useEffect(()=>{
     setTempUserHomeCoordinates(userHomeLocation);
+    setTempUserCurrentCoordinates(userCurrentLocation);
+    fetchUserCoodinates();
     setTempRadius(`${radius}`);
     drawCircumference();
   },[]);
@@ -42,7 +44,6 @@ const Maps = () => {
     const numPoints = 360;
     const points = [];
     const radiusMeters = parseFloat(tempRadius)*1000;
-    console.log(tempRadius,radius);
     
     for (let i = 0; i < numPoints; i++) {
       const angle = (Math.PI / 180) * (i * (360 / numPoints));
@@ -76,7 +77,9 @@ const Maps = () => {
     setInterval(async() => {
       const res = await firestore().collection('Users').doc(caretaker.id).get();
       const tempCoordinates = res._data.userCurrentCoordinates;
+      setTempUserCurrentCoordinates(tempCoordinates);
       setUserCurrentLocation(tempCoordinates);
+      await AsyncStorage.setItem('userCurrentLocation',JSON.stringify(tempCoordinates));
       console.log(1);
     }, 15000);
   }
@@ -102,12 +105,12 @@ const Maps = () => {
         >
           {/* <Image source={require('../assets/homePin.png')}/> */}
         </PointAnnotation>
-        <PointAnnotation
+        {!(tempUserCurrentCoordinates[0] === 0 && tempUserCurrentCoordinates[1] === 0) && <PointAnnotation
           id="pin"
           coordinate={tempUserCurrentCoordinates}
         >
           {/* <Image source={require('../assets/homePin.png')}/> */}
-        </PointAnnotation>
+        </PointAnnotation>}
       </MapView>
       <TouchableOpacity onPress={centerHandler} style={[styles.centerButton, styles.settingsButton]}>
         <Text style={styles.settingsText}>{locationToggle?"Lock":"Set"} Center</Text>
