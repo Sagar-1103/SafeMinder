@@ -7,7 +7,7 @@ import OxygenLevelBlock from '../../components/OxygenLevelBlock';
 const ReportsPage = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <StepsBlock steps={0} distance="0 km" calories="0 kcal" />
+      <StepsBlock steps={100} distance="0" calories="0" goals={1000} />
       <HeartRateBlock heartRate={150} />
       <OxygenLevelBlock oxygenLevel="98/100" />
     </ScrollView>
@@ -16,9 +16,10 @@ const ReportsPage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: '5%',
     backgroundColor: '#f9f9f9',
-  }
+    paddingBottom: '50%', // Add extra padding at the bottom
+  },
 });
 
 export default ReportsPage;
