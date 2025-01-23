@@ -13,7 +13,6 @@ import Onboarding2 from './screens/caretakerScreens/Onboarding2';
 
 LogBox.ignoreLogs(['new NativeEventEmitter']);
 
-
 const App = () => {
 
   return (
