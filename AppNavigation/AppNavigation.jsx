@@ -55,8 +55,8 @@ const AppNavigation = () => {
             const tempProcess = await AsyncStorage.getItem('process');
             const tempContacts = await AsyncStorage.getItem('contacts');
             const tempUserCurrentLocation = await AsyncStorage.getItem('userCurrentLocation');
-            const tempDates = await AsyncStorage.getItem('medDates');
-            setMedDates(JSON.parse(tempDates))          
+            // const tempDates = await AsyncStorage.getItem('medDates');
+            // setMedDates(JSON.parse(tempDates))          
             setUserCurrentLocation(JSON.parse(tempUserCurrentLocation));
             setContacts(JSON.parse(tempContacts));
             setCaretaker(JSON.parse(tempCaretakerDetails));

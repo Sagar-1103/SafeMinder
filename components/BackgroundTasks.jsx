@@ -59,7 +59,7 @@ export default function Allbackgroundservices({navigation}) {
                   else {
                     console.log("Fall Cancelled");
                   }
-                }, 30000); // 30 seconds
+                }, 10000); // 0 seconds
                 showNotification();
               }
               console.log(`______`);
