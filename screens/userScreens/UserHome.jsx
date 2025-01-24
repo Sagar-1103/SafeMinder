@@ -45,6 +45,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
               style={styles.touchable}
               onPress={()=>navigation.navigate("UserProfilePage")}
             >
+              <Image source={require('../../assets/UserSelectionProfile.png')} style={styles.profileImage1} />
               <Text style={styles.iconText}>Profile</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -85,7 +86,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
               onPress={() => navigation.navigate("ReportsPage")} // Use navigation.navigate
               style={styles.touchable}
             >
-              <Image source={require('../../assets/heartbeat.png')} style={styles.profileImage} />
+              <Image source={require('../../assets/healthWhite.png')} style={styles.profileImage} />
               <Text style={styles.iconText}>Health</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -124,6 +125,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
           style={styles.rectBox}
         >
           <TouchableOpacity onPress={()=> Linking.openURL(`tel:${caretaker.number}`)} style={styles.touchable}>
+            <Image source={require('../../assets/warning.png')} style={styles.profileImage} />            
             <Text style={styles.sosText}>Emergency SOS</Text>
           </TouchableOpacity>
         </LinearGradient>
