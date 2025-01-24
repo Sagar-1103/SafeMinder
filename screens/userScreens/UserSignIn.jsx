@@ -58,6 +58,8 @@ const UserSignIn = ({navigation}) => {
       setRole('user');
       await AsyncStorage.setItem('code',tempCode);
       setCode(tempCode);
+      await AsyncStorage.setItem('medDates',response1.medDates);
+      setMedDates(response1.medDates);
     } catch (error) {
       console.log('Error signing user : ', error);
     }

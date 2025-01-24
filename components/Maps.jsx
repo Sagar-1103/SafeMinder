@@ -235,8 +235,8 @@ const Maps = () => {
               value={tempRadius}
               onChangeText={setTempRadius}
             />
-              <TouchableOpacity onPress={handleRadiusSubmit} style={{backgroundColor:"powderblue",paddingHorizontal:10,paddingVertical:5,borderRadius:8}} >
-                <Text>Submit</Text>
+              <TouchableOpacity onPress={handleRadiusSubmit} style={{backgroundColor: 'rgb(0, 87, 158)',paddingHorizontal:10,paddingVertical:5,borderRadius:8}} >
+                <Text style={{color:"white"}} >Submit</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={()=>setModalVisible(false)} style={{position:'absolute',top:15,right:15}} >
                 <Text style={{fontWeight:900,fontSize:20,color:"black"}}>X</Text>
