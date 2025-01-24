@@ -139,7 +139,7 @@ const UserDetails = ({navigation}) => {
         </View>
 
       <View style={styles.emailInputContainer}>
-        <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets/date-of-birth.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
@@ -150,7 +150,7 @@ const UserDetails = ({navigation}) => {
       </View>
 
       <View style={styles.emailInputContainer}>
-        <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets/phone.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
@@ -162,7 +162,7 @@ const UserDetails = ({navigation}) => {
       </View>      
 
       <View style={styles.inputContainer}>
-        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets/phone.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholder="Enter user phone number"

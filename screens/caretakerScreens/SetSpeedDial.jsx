@@ -83,11 +83,11 @@ const SetSpeedDial = ({navigation}) => {
             </View>
         <View style={styles.imageContainer}>
             <View style={styles.imageUploadContainer}>
-                <Image source={require('../../assets/sms.png')} style={styles.uploadImage}/>
+                <Image source={require('../../assets/speedDial2.png')} style={styles.uploadImage}/>
             </View>
         </View>
       <View style={styles.inputContainer}>
-        <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets//User-Outline.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
@@ -99,7 +99,7 @@ const SetSpeedDial = ({navigation}) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets/phone.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholder="Contact 1 Number"
@@ -113,11 +113,11 @@ const SetSpeedDial = ({navigation}) => {
       </View>
       <View style={styles.imageContainer1}>
             <View style={styles.imageUploadContainer1}>
-                <Image source={require('../../assets/sms.png')} style={styles.uploadImage}/>
+                <Image source={require('../../assets/speedDial1.png')} style={styles.uploadImage}/>
             </View>
         </View>
       <View style={styles.inputContainer1}>
-        <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets//User-Outline.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
@@ -129,7 +129,7 @@ const SetSpeedDial = ({navigation}) => {
         />
       </View>
       <View style={styles.inputContainer1}>
-        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets/phone.png')} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholder="Contact 2 Number"
@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '40%',
     width: '40%',
-    backgroundColor: '#888',
     borderRadius: 32,
   },
   uploadImage: {
-    
+    height: '100%',
+    width: '100%',
   },
   imageContainer1: {
     alignItems: 'center',
@@ -183,7 +183,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '40%',
     width: '40%',
-    backgroundColor: '#888',
     borderRadius: 32,
   },
   backContainer: {
