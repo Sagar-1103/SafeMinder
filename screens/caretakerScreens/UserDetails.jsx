@@ -121,7 +121,7 @@ const UserDetails = ({navigation}) => {
         />
       </View>
 
-      <View style={{marginBottom:'7%'}}>
+      <View style={{marginBottom:'7%',}}>
       <SelectList
               setSelected={val => setUserGender(val)}
               data={genderOptions}
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     marginBottom: '9%',
     borderWidth: 1,
     height: '%',
-    backgroundColor: 'rgb(248, 250, 250)',
+    backgroundColor: 'rgb(242, 242, 242)',
     borderColor: 'rgb(212, 209, 209)',
     borderRadius: 15,
     paddingVertical: '1.2%',
@@ -289,10 +289,10 @@ const styles = StyleSheet.create({
   box: {
     borderWidth: 1,
     borderColor: '#CBCED5',
-    borderRadius: 8,
-    paddingVertical: 10,
+    borderRadius: 14,
+    paddingVertical: 17,
     paddingHorizontal: 15,
-    backgroundColor: '#ffffff',
+    backgroundColor: 'rgb(255, 253, 253)',
     fontSize: 15,
     fontWeight: '500',
     color: '#000000',
