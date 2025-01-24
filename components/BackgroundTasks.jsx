@@ -209,7 +209,7 @@ export default function Allbackgroundservices({navigation}) {
                           console.log("Location Updated");
                           // console.log(centreLocation);
                           const distance = calculateDistance(location.latitude, location.longitude, centreLocation[0], centreLocation[1]);
-                          if (distance<tempRadius) {
+                          if (distance>tempRadius) {
                             console.log("User out of bound");
                             await firestore().collection('Users').doc(code).update({boundStatus:true});
                             outofboundshowNotification();
