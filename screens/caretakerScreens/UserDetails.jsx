@@ -147,7 +147,7 @@ const UserDetails = ({navigation}) => {
           placeholderTextColor="#888"
           placeholder="Enter user D.O.B"
           value={userDob}
-          onChangeText={(text) => setUserDob(text)}
+          onChangeText={(text) => setUserDob(text)} 
         />
       </View>
 

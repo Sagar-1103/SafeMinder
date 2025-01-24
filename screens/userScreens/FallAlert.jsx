@@ -67,7 +67,7 @@ const FallAlert = () => {
 
         {/* Center Image */}
         <Image
-          source={require('../../assets/sms.png')} // Replace with your PNG image path
+          source={require('../../assets/man.png')} // Replace with your PNG image path
           style={styles.image}
         />
 
@@ -85,7 +85,7 @@ const FallAlert = () => {
 export default FallAlert;
 
 const styles = StyleSheet.create({
-  container: {
+  container: {   
     flex: 1,
   },
   gradient: {
