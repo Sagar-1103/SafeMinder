@@ -85,6 +85,11 @@ const CaretakerSignUp = ({navigation}) => {
 
     } catch (error) {
       console.log(error);
+      setModalMessage({
+        title: 'Google Signin Error',
+        description: `${error}`,
+      });
+      setModalVisible(true);
     }
   };
 

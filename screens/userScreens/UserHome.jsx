@@ -56,6 +56,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             style={styles.iconBox}
           >
             <TouchableOpacity onPress={()=>Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${user.userHomeCoordinates[1]},${user.userHomeCoordinates[0]}`)} style={styles.touchable}>
+            <Image source={require('../../assets/homeUser.png')} style={styles.profileImage} />
               <Text style={styles.iconText}>Home</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -69,6 +70,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             style={styles.iconBox}
           >
             <TouchableOpacity onPress={()=>navigation.navigate("MedicineList")} style={styles.touchable}>
+            <Image source={require('../../assets/pill.png')} style={styles.profileImage} />
               <Text style={styles.iconText}>Medicine</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -83,6 +85,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
               onPress={() => navigation.navigate("ReportsPage")} // Use navigation.navigate
               style={styles.touchable}
             >
+              <Image source={require('../../assets/heartbeat.png')} style={styles.profileImage} />
               <Text style={styles.iconText}>Health</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -179,7 +182,7 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 50,
     height: 50,
-    borderRadius: 25,
+    // borderRadius: 25,
     marginBottom: 8,
   },
 });

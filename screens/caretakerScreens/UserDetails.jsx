@@ -141,7 +141,7 @@ const UserDetails = ({navigation}) => {
         </View>
 
       <View style={styles.emailInputContainer}>
-        <Image source={require('../../assets/date-of-birth.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets/date-of-birth.png')} style={styles.inputIconDOB} />
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
@@ -242,6 +242,11 @@ const styles = StyleSheet.create({
     height: '60%',
     marginHorizontal: '4%',
   },
+  inputIconDOB: {
+    width: '12%',
+    height: '61%',
+    marginHorizontal: '3%',
+  },
   backButton: {
     width: '25%',
     height: '60%',
@@ -253,7 +258,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: '9%',
     borderWidth: 1,
-    height: '%',
+    height: '5%',
     backgroundColor: 'rgb(248, 250, 250)',
     borderColor: 'rgb(212, 209, 209)',
     borderRadius: 15,
