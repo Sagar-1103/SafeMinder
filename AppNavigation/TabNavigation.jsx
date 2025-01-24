@@ -14,6 +14,7 @@ import ProfileIcon from '../assets/Profile.png';
 import ProfileActiveIcon from '../assets/profileActive.png';
 import ReportsCaretakerPage from "../screens/caretakerScreens/ReportCaretakerPage"
 import ProfilePage from '../components/ProfilePage';
+import MedicationReminder from '../screens/caretakerScreens/MedicationReminder';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ const tabData = [
     },
     {
         name: 'Medicine',
-        component: ReportsCaretakerPage,
+        component: MedicationReminder,
         icons: {
             inactive: MedicationIcon,
             active: MedicationActiveIcon,

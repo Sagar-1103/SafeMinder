@@ -33,7 +33,7 @@ const HeartRateBlock = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Heart Rate</Text>
       <View style={styles.innerContainer}>
-        <Image source={require('../assets/lock.png')} style={styles.icon} />
+        <Image source={require('../assets/heartbeat.png')} style={styles.icon} />
         <View>
           <Text style={styles.heartRate}>
             {avg || '---'}

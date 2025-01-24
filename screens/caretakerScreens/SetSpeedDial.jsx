@@ -89,12 +89,12 @@ const SetSpeedDial = ({navigation}) => {
 
         <View style={styles.imageContainer}>
           <View style={styles.imageUploadContainer}>
-            <Image source={Profile} style={styles.uploadImage} />
+            <Image  source={require('../../assets/speedDial2.png')} style={styles.uploadImage} />
           </View>
         </View>
 
         <View style={styles.inputContainer}>
-          <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
+          <Image source={require('../../assets/User-Outline.png')} style={styles.inputIcon} />
           <TextInput
             style={styles.input}
             placeholderTextColor="#888"
@@ -107,12 +107,13 @@ const SetSpeedDial = ({navigation}) => {
         </View>
 
         <View style={styles.inputContainer}>
-          <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
+          <Image source={require('../../assets/phone.png')} style={styles.inputIcon} />
           <TextInput
             style={styles.input}
             placeholder="Contact 1 Number"
             placeholderTextColor="#888"
             value={contact1.phNo}
+            keyboardType='numeric'
             onChangeText={(text) =>
               setContact1((prev) => ({ ...prev, phNo: text }))
             }
@@ -121,12 +122,12 @@ const SetSpeedDial = ({navigation}) => {
 
         <View style={styles.imageContainer}>
           <View style={styles.imageUploadContainer}>
-            <Image source={Profile} style={styles.uploadImage} />
+            <Image source={require('../../assets/speedDial1.png')} style={styles.uploadImage} />
           </View>
         </View>
 
         <View style={styles.inputContainer}>
-          <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
+          <Image source={require('../../assets//User-Outline.png')}  style={styles.inputIcon} />
           <TextInput
             style={styles.input}
             placeholderTextColor="#888"
@@ -139,12 +140,13 @@ const SetSpeedDial = ({navigation}) => {
         </View>
 
         <View style={styles.inputContainer}>
-          <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
+          <Image source={require('../../assets/phone.png')} style={styles.inputIcon} />
           <TextInput
             style={styles.input}
             placeholder="Contact 2 Number"
             placeholderTextColor="#888"
             value={contact2.phNo}
+            keyboardType='numeric'
             onChangeText={(text) =>
               setContact2((prev) => ({ ...prev, phNo: text }))
             }
@@ -176,6 +178,10 @@ const styles = StyleSheet.create({
     color: '#000000',
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  uploadImage: {
+    height: '100%',
+    width: '100%',
   },
   backContainer: {
     // height: 40,

@@ -16,7 +16,7 @@ const series = [
           <PieChart widthAndHeight={140} series={series} cover={0.75} style={styles.piechart} />
           {/* Image and Text Overlay */}
           <View style={styles.overlayContent}>
-            <Image source={require('../assets/sms.png')} style={styles.image} />
+            <Image source={require('../assets/footstep.png')} style={styles.image} />
             <Text style={styles.centerText}>{`${steps}`}</Text>
           </View>
         </View>

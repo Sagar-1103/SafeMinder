@@ -44,8 +44,8 @@ export default function Allbackgroundservices({navigation}) {
                 // Set timeout to remove the token after 30 seconds
                 setTimeout(async () => {
                   if (await AsyncStorage.getItem('detectedKey')) {
-                    navigation.navigate("Temp");
-                    // todos
+                    navigation.navigate("FallAlert");
+                   
                     try {
                       if(temp){
                         const res = await firestore().collection('Users').doc(code).update({'fallDetected': true})
@@ -352,11 +352,11 @@ export default function Allbackgroundservices({navigation}) {
 
       // For running all the services
       const startAllBackgroundServices = async () => {
-        await Promise.all([startBackgroundService()]);
+        await Promise.all([startBackgroundService(),startBackgroundService1(),startBackgroundService2()]);
       };
       
       const stopAllBackgroundServices = async () => {
-        await Promise.all([stopBackgroundService()]);
+        await Promise.all([stopBackgroundService(),stopBackgroundService1(),stopBackgroundService2()]);
       };
       const redirect = ()=>{
         startAllBackgroundServices();

@@ -61,7 +61,7 @@ const SetHomeLocation = ({navigation}) => {
 
   const debouncedFetchRecommendations = debounce(async (text) => {
     await fetchRecommendations(text);
-}, 5000);
+}, 3000);
 
   const handleSelectRecommendation = item => {
     setTempLocation(item.name);

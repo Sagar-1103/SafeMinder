@@ -20,6 +20,8 @@ import TabNavigation from './TabNavigation';
 import BackgroundTasks from '../components/BackgroundTasks';
 import ReportsPage from '../screens/caretakerScreens/ReportsPage';
 import UserProfilePage from '../components/UserProfilePage';
+import FallAlert from '../screens/userScreens/FallAlert';
+import MedicineList from '../screens/userScreens/MedicineList';
 
 const Stack = createNativeStackNavigator();
 
@@ -115,6 +117,8 @@ const AppNavigation = () => {
                         <Stack.Screen name="BackgroundTasks" component={BackgroundTasks}/>
                         <Stack.Screen name="ReportsPage" component={ReportsPage}/>
                         <Stack.Screen name="UserProfilePage" component={UserProfilePage}/>
+                        <Stack.Screen name="FallAlert" component={FallAlert}/>
+                        <Stack.Screen name="MedicineList" component={MedicineList}/>
                         <Stack.Screen name="Temp" component={Temp}/>
                 </Stack.Navigator>
         );

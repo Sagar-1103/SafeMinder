@@ -10,7 +10,7 @@ const UserProfilePage = ({ navigation }) => {
   
   const {user} = useLogin();
   const handleLogout = async() => {
-    await AsyncStorage.clear();
+    // await AsyncStorage.clear();
   };
 
   return (

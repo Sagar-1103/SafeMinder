@@ -1,11 +1,14 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Linking } from 'react-native';
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from "../../assets/safeMinderLogo.png";
 import { useNavigation } from '@react-navigation/native';
+import { useLogin } from '../../context/LoginProvider';
 
 const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => {
   const [serviceStatus, setServiceStatus] = useState(false);
+  const {user,caretaker} = useLogin();
+  
   const navigation = useNavigation(); // Correct usage here
 
   const handleServices = async () => {
@@ -52,7 +55,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
-            <TouchableOpacity style={styles.touchable}>
+            <TouchableOpacity onPress={()=>Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${user.userHomeCoordinates[1]},${user.userHomeCoordinates[0]}`)} style={styles.touchable}>
               <Text style={styles.iconText}>Home</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -65,7 +68,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
-            <TouchableOpacity style={styles.touchable}>
+            <TouchableOpacity onPress={()=>navigation.navigate("MedicineList")} style={styles.touchable}>
               <Text style={styles.iconText}>Medicine</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -92,7 +95,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
-            <TouchableOpacity style={styles.touchable}>
+            <TouchableOpacity onPress={()=> Linking.openURL(`tel:${user.contacts[0].phNo}`)} style={styles.touchable}>
               <Image source={Logo} style={styles.profileImage} />
               <Text style={styles.iconText}>person1</Text>
             </TouchableOpacity>
@@ -104,7 +107,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
-            <TouchableOpacity style={styles.touchable}>
+            <TouchableOpacity  onPress={()=> Linking.openURL(`tel:${user.contacts[1].phNo}`)} style={styles.touchable}>
               <Image source={Logo} style={styles.profileImage} />
               <Text style={styles.iconText}>person2</Text>
             </TouchableOpacity>
@@ -117,7 +120,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
           end={{ x: 1, y: 0 }}
           style={styles.rectBox}
         >
-          <TouchableOpacity style={styles.touchable}>
+          <TouchableOpacity onPress={()=> Linking.openURL(`tel:${caretaker.number}`)} style={styles.touchable}>
             <Text style={styles.sosText}>Emergency SOS</Text>
           </TouchableOpacity>
         </LinearGradient>
