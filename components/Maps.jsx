@@ -31,13 +31,24 @@ const Maps = () => {
               const res = await firestore().collection('Users').doc(caretaker?.id).get();
               const fallDetectedStatus = res._data.fallDetected;
               const boundDetectedStatus = res._data.boundStatus;
+              const sosStatus = res._data?.sos
               const userName = res._data?.name;
+              if(sosStatus){
+                try {
+                  const res = await firestore().collection('Users').doc(user?.id).update({sos: false});
+                  console.log(res);
+                  
+                  showNotification(`${userName} has sent a sos emergency message.`);
+              } catch (error) {
+                  console.log(error);
+              }
+              }
               if (boundDetectedStatus) {
                 showNotification(`${userName} is out of bound.`);
               }
               if (fallDetectedStatus) {
                 try {
-                  await firestore().collection('Users').doc(caretaker?.id).update({'fallDetected': false});
+                  await firestore().collection('Users').doc(user?.id).update({fallDetected: false});
                   showNotification(`${userName} has fallen down`);
               } catch (error) {
                   console.log(error);
@@ -224,8 +235,8 @@ const Maps = () => {
               value={tempRadius}
               onChangeText={setTempRadius}
             />
-              <TouchableOpacity onPress={handleRadiusSubmit} style={{backgroundColor:"powderblue",paddingHorizontal:10,paddingVertical:5,borderRadius:8}} >
-                <Text>Submit</Text>
+              <TouchableOpacity onPress={handleRadiusSubmit} style={{backgroundColor: 'rgb(0, 87, 158)',paddingHorizontal:10,paddingVertical:5,borderRadius:8}} >
+                <Text style={{color:"white"}} >Submit</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={()=>setModalVisible(false)} style={{position:'absolute',top:15,right:15}} >
                 <Text style={{fontWeight:900,fontSize:20,color:"black"}}>X</Text>

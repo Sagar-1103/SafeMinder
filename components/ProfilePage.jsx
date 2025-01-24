@@ -4,15 +4,32 @@ import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../assets/safeMinderLogoOnly.png'; // Replace with your profile image or icon
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLogin } from '../context/LoginProvider';
+import firestore from '@react-native-firebase/firestore';
 
 const ProfilePage = ({ navigation }) => {
    
 
     const {user,contacts,caretaker} = useLogin();
-
+    const [tName,setTName] = useState("User Name")
+    const [tMail,setTMail] = useState("Primary Email")
   const handleLogout = async() => {
     await AsyncStorage.clear();
   };
+
+  useEffect(()=>{
+    getDetails();
+  },[]);
+
+  const getDetails = async()=>{
+    try {
+      const res = await firestore().collection('Caretakers').doc(user?.id).get();
+      setTName(res._data.name);
+      setTMail(res._data.email);
+    } catch (error) {
+      console.log("Error : ",error);
+      
+    }
+  }
 
   return (
     <LinearGradient
@@ -25,8 +42,8 @@ const ProfilePage = ({ navigation }) => {
         {/* Profile Image and Basic Info */}
         <View style={styles.profileImageContainer}>
           <Image source={Logo} style={styles.profileImage} />
-          <Text style={styles.userName}>{caretaker?.name || 'User Name'}</Text>
-          <Text style={styles.userEmail}>{caretaker?.email || 'Primary Email'}</Text>
+          <Text style={styles.userName}>{tName}</Text>
+          <Text style={styles.userEmail}>{tMail}</Text>
         </View>
 
         {/* User Details */}
@@ -45,8 +62,8 @@ const ProfilePage = ({ navigation }) => {
         {/* Contacts */}
         <View style={styles.contactsContainer}>
           <Text style={styles.sectionTitle}>Contacts</Text>
-          {user?.contacts?.length > 0 ? (
-            user.contacts.map((contact, index) => (
+          {contacts?.length > 0 ? (
+            contacts.map((contact, index) => (
               <View key={index} style={styles.contactRow}>
                 <Text style={styles.contactName}>{contact.name}</Text>
                 <Text style={styles.contactNumber}>{contact.phNo}</Text>

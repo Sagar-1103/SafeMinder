@@ -46,7 +46,7 @@ const SetSpeedDial = ({navigation}) => {
       const res1 = await firestore().collection('Caretakers').doc(caretaker.id).set({contacts:updatedContacts}, { merge: true });
       const res2 = await firestore().collection('Users').doc(caretaker.id).set({contacts:updatedContacts}, { merge: true });
       await AsyncStorage.setItem('contacts', JSON.stringify(updatedContacts));
-      navigation.navigate("UserCodeScreen");
+      navigation.navigate("MedTime");
     } catch (error) {
       console.log("Error : ",error);
     }

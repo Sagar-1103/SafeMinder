@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import { useLogin } from '../../context/LoginProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import firestore from '@react-native-firebase/firestore';
 
-const MedTime = () => {
+const MedTime = ({navigation}) => {
   const [dates, setDates] = useState([null, null, null, null]);
   const [openIndex, setOpenIndex] = useState(null);
   const timeLabels = ['Breakfast Time', 'Lunch Time', 'Select Snacks Time', 'Select Dinner Time'];
@@ -13,8 +16,20 @@ const MedTime = () => {
     require('../../assets/dinnerActive.png'),
   ];
 
+  const {medDates,user,setMedDates} = useLogin();
+
   const handleSubmit = async() => {
-    console.log("Medicine Time Added");
+    try {
+      console.log(dates);
+      setMedDates(dates);
+      await firestore().collection('Users').doc(user?.id).update({medDates: dates});
+      await AsyncStorage.setItem('medDates',JSON.stringify(dates));
+      
+      console.log("Medicine Time Added");
+      navigation.navigate("UserCodeScreen");
+    } catch (error) {
+      console.log("Error : ",error);
+    }
   }
 
   return (

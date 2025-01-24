@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginBottom: '7%',
     fontFamily: 'Poppins',
+    color: '#888'
   },
   signInButton: {
     width: '90%',

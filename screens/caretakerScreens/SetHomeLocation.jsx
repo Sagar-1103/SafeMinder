@@ -178,7 +178,8 @@ const styles = StyleSheet.create({
   },
   recommendationList: {
     position: 'absolute',
-    top: '20%', // Adjust based on your layout
+    top: '32%', 
+    left: '15%',
     width: '100%',
     backgroundColor: '#fff',
     borderWidth: 1,
@@ -191,6 +192,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: 'rgb(212, 209, 209)',
+    
   },
   recommendationText: {
     fontSize: 16,

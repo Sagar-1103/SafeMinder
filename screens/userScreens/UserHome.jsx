@@ -4,12 +4,22 @@ import LinearGradient from 'react-native-linear-gradient';
 import Logo from "../../assets/safeMinderLogo.png";
 import { useNavigation } from '@react-navigation/native';
 import { useLogin } from '../../context/LoginProvider';
+import firestore from '@react-native-firebase/firestore';
 
 const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => {
   const [serviceStatus, setServiceStatus] = useState(false);
   const {user,caretaker} = useLogin();
   
   const navigation = useNavigation(); // Correct usage here
+
+  const handleEmergency = async()=>{
+    try {
+    const res2 = await firestore().collection('Users').doc(user.id).set({sos:true},{ merge: true });
+    console.log("SOS Sent");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleServices = async () => {
     if (!serviceStatus) {
@@ -124,7 +134,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
           end={{ x: 1, y: 0 }}
           style={styles.rectBox}
         >
-          <TouchableOpacity onPress={()=> Linking.openURL(`tel:${caretaker.number}`)} style={styles.touchable}>
+          <TouchableOpacity onPress={handleEmergency} style={styles.touchable}>
             <Image source={require('../../assets/warning.png')} style={styles.profileImage} />            
             <Text style={styles.sosText}>Emergency SOS</Text>
           </TouchableOpacity>

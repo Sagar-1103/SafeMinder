@@ -22,12 +22,13 @@ import ReportsPage from '../screens/caretakerScreens/ReportsPage';
 import UserProfilePage from '../components/UserProfilePage';
 import FallAlert from '../screens/userScreens/FallAlert';
 import MedicineList from '../screens/userScreens/MedicineList';
+import MedTime from '../screens/caretakerScreens/medTime';
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
     const [loading,setLoading] = useState(true);
-    const {role,setRole,loggedIn,process,setUserCurrentLocation,setRadius,setProcess,setCaretaker,setContacts,setUser,setLoggedIn,isAssigned,setIsAssigned,code,setCode,setUserHomeLocation} = useLogin();
+    const {role,setRole,setMedDates,loggedIn,process,setUserCurrentLocation,setRadius,setProcess,setCaretaker,setContacts,setUser,setLoggedIn,isAssigned,setIsAssigned,code,setCode,setUserHomeLocation} = useLogin();
 
     GoogleSignin.configure({
         webClientId: "294068590748-cslueqdkqbn32u6im50h9fmp37t76jt2.apps.googleusercontent.com",
@@ -53,7 +54,9 @@ const AppNavigation = () => {
             console.log(tempRadius);
             const tempProcess = await AsyncStorage.getItem('process');
             const tempContacts = await AsyncStorage.getItem('contacts');
-            const tempUserCurrentLocation = await AsyncStorage.getItem('userCurrentLocation');            
+            const tempUserCurrentLocation = await AsyncStorage.getItem('userCurrentLocation');
+            // const tempDates = await AsyncStorage.getItem('medDates');
+            // setMedDates(JSON.parse(tempDates))          
             setUserCurrentLocation(JSON.parse(tempUserCurrentLocation));
             setContacts(JSON.parse(tempContacts));
             setCaretaker(JSON.parse(tempCaretakerDetails));
@@ -104,6 +107,7 @@ const AppNavigation = () => {
                 <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="SetHomeLocation"  >
                            <Stack.Screen name="SetHomeLocation" component={SetHomeLocation}/>
                            <Stack.Screen name="SetSpeedDial" component={SetSpeedDial}/>
+                           <Stack.Screen name="MedTime" component={MedTime}/>
                            <Stack.Screen name="UserCodeScreen" component={UserCodeScreen}/>
                 </Stack.Navigator>
             );
