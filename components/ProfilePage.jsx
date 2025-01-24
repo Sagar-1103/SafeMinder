@@ -26,6 +26,7 @@ const ProfilePage = ({ navigation }) => {
       setTName(res._data.name);
       setTMail(res._data.email);
     } catch (error) {
+      console.log("Error : ",error);
       
     }
   }
