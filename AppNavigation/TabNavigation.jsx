@@ -1,9 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { Image } from 'react-native';
-import Temp from '../components/Temp';
 import Maps from '../components/Maps';
-import ChartComponent from '../components/Chart';
 
 // Importing images
 import HomeIcon from '../assets/Home.png';
@@ -14,6 +12,8 @@ import MedicationIcon from '../assets/Medication.png';
 import MedicationActiveIcon from '../assets/MedicationActive.png';
 import ProfileIcon from '../assets/Profile.png';
 import ProfileActiveIcon from '../assets/profileActive.png';
+import ReportsCaretakerPage from "../screens/caretakerScreens/ReportCaretakerPage"
+import ProfilePage from '../components/ProfilePage';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +28,7 @@ const tabData = [
     },
     {
         name: 'Health',
-        component: Temp,
+        component: ReportsCaretakerPage,
         icons: {
             inactive: HealthIcon,
             active: HealthActiveIcon,
@@ -36,7 +36,7 @@ const tabData = [
     },
     {
         name: 'Medicine',
-        component: ChartComponent,
+        component: ReportsCaretakerPage,
         icons: {
             inactive: MedicationIcon,
             active: MedicationActiveIcon,
@@ -44,7 +44,7 @@ const tabData = [
     },
     {
         name: 'Profile',
-        component: ChartComponent,
+        component: ProfilePage,
         icons: {
             inactive: ProfileIcon,
             active: ProfileActiveIcon,

@@ -1,23 +1,25 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import Logo from "../../assets/safeMinderLogo.png"
+import Logo from "../../assets/safeMinderLogo.png";
+import { useNavigation } from '@react-navigation/native';
 
-const UserHome = ({navigation,startAllBackgroundServices,stopAllBackgroundServices}) => {
-  const [serviceStatus,setServiceStatus] = useState(false);
+const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => {
+  const [serviceStatus, setServiceStatus] = useState(false);
+  const navigation = useNavigation(); // Correct usage here
 
-  const handleServices = async()=>{
+  const handleServices = async () => {
     if (!serviceStatus) {
-        setServiceStatus(true);
-        startAllBackgroundServices();
-        console.log("Services Started");
-      }
-      else {
-        setServiceStatus(false);
-        stopAllBackgroundServices();
-        console.log("Services Closed");
+      setServiceStatus(true);
+      startAllBackgroundServices();
+      console.log("Services Started");
+    } else {
+      setServiceStatus(false);
+      stopAllBackgroundServices();
+      console.log("Services Closed");
     }
-  }
+  };
+
   return (
     <LinearGradient
       colors={['rgb(170, 170, 170)', 'rgba(255,255,255,1)']}
@@ -27,22 +29,25 @@ const UserHome = ({navigation,startAllBackgroundServices,stopAllBackgroundServic
       style={styles.gradient}
     >
       <View style={styles.container}>
-        
         <View style={styles.row}>
-
           <LinearGradient
             colors={['#000', '#555']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
-            <TouchableOpacity onLongPress={handleServices} delayLongPress={2000} style={styles.touchable}>
-              <Text style={styles.iconText}>Settings</Text>
+            <TouchableOpacity
+              onLongPress={handleServices}
+              delayLongPress={2000}
+              style={styles.touchable}
+              onPress={()=>navigation.navigate("UserProfilePage")}
+            >
+              <Text style={styles.iconText}>Profile</Text>
             </TouchableOpacity>
           </LinearGradient>
 
           <LinearGradient
-            colors={['rgb(48,195,242)','rgb(0,172,235)', 'rgb(0,149,219)']}
+            colors={['rgb(48,195,242)', 'rgb(0,172,235)', 'rgb(0,149,219)']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
@@ -54,7 +59,6 @@ const UserHome = ({navigation,startAllBackgroundServices,stopAllBackgroundServic
         </View>
 
         <View style={styles.row}>
-
           <LinearGradient
             colors={['rgb(208,32,31)', 'rgb(233,108,56)']}
             start={{ x: 0, y: 0 }}
@@ -67,52 +71,48 @@ const UserHome = ({navigation,startAllBackgroundServices,stopAllBackgroundServic
           </LinearGradient>
 
           <LinearGradient
-            colors={['rgb(100,63,153)','rgb(110,51,147)', 'rgb(164,62,151)']}
+            colors={['rgb(100,63,153)', 'rgb(110,51,147)', 'rgb(164,62,151)']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
-            <TouchableOpacity style={styles.touchable}>
-              <Text style={styles.iconText}>Voice</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ReportsPage")} // Use navigation.navigate
+              style={styles.touchable}
+            >
+              <Text style={styles.iconText}>Health</Text>
             </TouchableOpacity>
           </LinearGradient>
         </View>
 
         <View style={styles.row}>
-
           <LinearGradient
-            colors={['rgb(91,88,166)','rgb(45,54,144)', 'rgb(73,68,115)']}
+            colors={['rgb(91,88,166)', 'rgb(45,54,144)', 'rgb(73,68,115)']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
             <TouchableOpacity style={styles.touchable}>
-              <Image
-                source={Logo}
-                style={styles.profileImage}
-              />
+              <Image source={Logo} style={styles.profileImage} />
               <Text style={styles.iconText}>person1</Text>
             </TouchableOpacity>
           </LinearGradient>
 
           <LinearGradient
-            colors={['rgb(91,88,166)','rgb(45,54,144)', 'rgb(73,68,115)']}
+            colors={['rgb(91,88,166)', 'rgb(45,54,144)', 'rgb(73,68,115)']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.iconBox}
           >
             <TouchableOpacity style={styles.touchable}>
-              <Image
-                source={Logo}
-                style={styles.profileImage}
-              />
+              <Image source={Logo} style={styles.profileImage} />
               <Text style={styles.iconText}>person2</Text>
             </TouchableOpacity>
           </LinearGradient>
         </View>
 
         <LinearGradient
-            colors={['rgb(239,70,51)','rgb(243,112,97)']}
+          colors={['rgb(239,70,51)', 'rgb(243,112,97)']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={styles.rectBox}
@@ -121,7 +121,6 @@ const UserHome = ({navigation,startAllBackgroundServices,stopAllBackgroundServic
             <Text style={styles.sosText}>Emergency SOS</Text>
           </TouchableOpacity>
         </LinearGradient>
-
       </View>
     </LinearGradient>
   );

@@ -57,6 +57,8 @@ const UserDetails = ({navigation}) => {
         gender: userGender,
         dob: userDob,
         number: userphno,
+        fallDetected:false,
+        boundStatus:false
       };
   
       const caretakerDetails = {

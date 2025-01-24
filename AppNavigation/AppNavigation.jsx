@@ -18,6 +18,8 @@ import SetSpeedDial from '../screens/caretakerScreens/SetSpeedDial';
 import UserCodeScreen from '../screens/caretakerScreens/UserCodeScreen';
 import TabNavigation from './TabNavigation';
 import BackgroundTasks from '../components/BackgroundTasks';
+import ReportsPage from '../screens/caretakerScreens/ReportsPage';
+import UserProfilePage from '../components/UserProfilePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -111,6 +113,8 @@ const AppNavigation = () => {
         return (
                 <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="BackgroundTasks"  >
                         <Stack.Screen name="BackgroundTasks" component={BackgroundTasks}/>
+                        <Stack.Screen name="ReportsPage" component={ReportsPage}/>
+                        <Stack.Screen name="UserProfilePage" component={UserProfilePage}/>
                         <Stack.Screen name="Temp" component={Temp}/>
                 </Stack.Navigator>
         );

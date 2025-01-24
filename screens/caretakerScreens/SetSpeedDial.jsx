@@ -6,11 +6,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native';
 import ModalComponent from '../../components/Modal';
 import { useLogin } from '../../context/LoginProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
+import Profile from '../../assets/Profile.png'
 
 
 const SetSpeedDial = ({navigation}) => {
@@ -70,230 +73,166 @@ const SetSpeedDial = ({navigation}) => {
   return (
     <>
     <ModalComponent modalVisible={modalVisible} setModalVisible={setModalVisible} title={modalMessage.title} description={modalMessage.description} showBtn={modalMessage.showBtn} />
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined} // Adjust for iOS or Android
+    >
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backContainer}>
+          <View>
+            <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
+          </View>
+        </TouchableOpacity>
+        <View style={styles.headerContainer}>
+          <Text style={styles.title}>Set Speed Dial</Text>
+        </View>
 
-    <View style={styles.container}>
-      <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backContainer}>
-              <View>
-                <Image source={require('../../assets/backButton.png')} style={styles.backButton} />
-              </View>
-            </TouchableOpacity>
-            <View style={styles.headerContainer}>
-              
-              <Text style={styles.title}>Set Speed Dial</Text>
-            </View>
         <View style={styles.imageContainer}>
-            <View style={styles.imageUploadContainer}>
-                <Image source={require('../../assets/sms.png')} style={styles.uploadImage}/>
-            </View>
+          <View style={styles.imageUploadContainer}>
+            <Image source={Profile} style={styles.uploadImage} />
+          </View>
         </View>
-      <View style={styles.inputContainer}>
-        <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#888"
-          placeholder="Contact 1 Name"
-          value={contact1.name}
-          onChangeText={(text) =>
-            setContact1((prev) => ({ ...prev, name: text }))
-          }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Contact 1 Number"
-          placeholderTextColor="#888"
-          keyboardType='numeric'
-          value={contact1.phNo}
-          onChangeText={(text) =>
-            setContact1((prev) => ({ ...prev, phNo: text }))
-          }
-        />
-      </View>
-      <View style={styles.imageContainer1}>
-            <View style={styles.imageUploadContainer1}>
-                <Image source={require('../../assets/sms.png')} style={styles.uploadImage}/>
-            </View>
+
+        <View style={styles.inputContainer}>
+          <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#888"
+            placeholder="Contact 1 Name"
+            value={contact1.name}
+            onChangeText={(text) =>
+              setContact1((prev) => ({ ...prev, name: text }))
+            }
+          />
         </View>
-      <View style={styles.inputContainer1}>
-        <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#888"
-          placeholder="Contact 2 Name"
-          value={contact2.name}
-          onChangeText={(text) =>
-            setContact2((prev) => ({ ...prev, name: text }))
-          }
-        />
-      </View>
-      <View style={styles.inputContainer1}>
-        <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Contact 2 Number"
-          placeholderTextColor="#888"
-          keyboardType='numeric'
-          value={contact2.phNo}
-          onChangeText={(text) =>
-            setContact2((prev) => ({ ...prev, phNo: text }))
-          }
-        />
-      </View>
-      <TouchableOpacity onPress={handleSubmit} style={styles.signInButton}>
-        <Text style={styles.signInButtonText}>Continue</Text>
-      </TouchableOpacity>
-    </View>
+
+        <View style={styles.inputContainer}>
+          <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Contact 1 Number"
+            placeholderTextColor="#888"
+            value={contact1.phNo}
+            onChangeText={(text) =>
+              setContact1((prev) => ({ ...prev, phNo: text }))
+            }
+          />
+        </View>
+
+        <View style={styles.imageContainer}>
+          <View style={styles.imageUploadContainer}>
+            <Image source={Profile} style={styles.uploadImage} />
+          </View>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Image source={require('../../assets/sms.png')} style={styles.inputIcon} />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#888"
+            placeholder="Enter your email"
+            value={contact2.name}
+            onChangeText={(text) =>
+              setContact2((prev) => ({ ...prev, name: text }))
+            }
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Image source={require('../../assets/lock.png')} style={styles.inputIcon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Contact 2 Number"
+            placeholderTextColor="#888"
+            value={contact2.phNo}
+            onChangeText={(text) =>
+              setContact2((prev) => ({ ...prev, phNo: text }))
+            }
+          />
+        </View>
+
+
+        <TouchableOpacity onPress={handleSubmit} style={styles.signInButton}>
+          <Text style={styles.signInButtonText}>Continue</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
     </>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: '10%', // Use percentage padding
-    backgroundColor: '#fff',    
+    backgroundColor: '#fff',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center', // Center content vertically
+    paddingHorizontal: '10%',
   },
   title: {
-    fontSize: 32, // Use percentage font size
+    fontSize: 32,
     color: '#000000',
     textAlign: 'center',
-    fontWeight: 'bold', // Use percentage margin
-    bottom: '6%'
+    fontWeight: 'bold',
+  },
+  backContainer: {
+    // height: 40,
+    marginBottom: '0%',
+    top: '4.0%',
+  },
+  backButton: {
+    width: 30,
+    height: 30,
+  },
+  headerContainer: {
+    marginBottom: 30,
   },
   imageContainer: {
     alignItems: 'center',
-    bottom: '5%',
+    marginBottom: 30,
   },
   imageUploadContainer: {
     alignItems: 'center',
-    height: '40%',
-    width: '40%',
+    height: 100,
+    width: 100,
     backgroundColor: '#888',
     borderRadius: 32,
-  },
-  uploadImage: {
-    
-  },
-  imageContainer1: {
-    alignItems: 'center',
-    bottom: '26%',
-  },
-  imageUploadContainer1: {
-    alignItems: 'center',
-    height: '40%',
-    width: '40%',
-    backgroundColor: '#888',
-    borderRadius: 32,
-  },
-  backContainer: {
-    height: '10%',
-    top: '4.5%',
-    width: '50%',
-    // right: '80%'
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: '4%', // Use percentage margin
+    marginBottom: 15,
     borderWidth: 1,
     backgroundColor: 'rgb(248, 250, 250)',
     borderColor: 'rgb(212, 209, 209)',
     borderRadius: 15,
-    paddingVertical: '1.2%',
-    paddingHorizontal: '5%',
-    bottom: '69%',
-  },
-  inputContainer1: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: '4%', // Use percentage margin
-    borderWidth: 1,
-    backgroundColor: 'rgb(248, 250, 250)',
-    borderColor: 'rgb(212, 209, 209)',
-    borderRadius: 15,
-    paddingVertical: '1.2%',
-    paddingHorizontal: '5%',
-    bottom: '122%',
+    padding: 10,
   },
   input: {
     flex: 1,
-    marginLeft: '3%',
+    marginLeft: 10,
     color: '#888',
     fontSize: 17,
   },
   inputIcon: {
-    width: '10%', // Use percentage width
-    height: '60%', // Use percentage height
-    marginHorizontal: '4%',
+    width: 20,
+    height: 20,
   },
   signInButton: {
-    backgroundColor: 'rgb(233,108,56)', // Red color
-    padding: '6%', // Use percentage padding
+    backgroundColor: 'rgb(233,108,56)',
+    padding: 15,
     borderRadius: 32,
-    bottom: '46%', // Use percentage margin
-  },
-  backButton: {
-    width: '20%', // Use percentage width
-    height: '60%', // Use percentage height
-    marginLeft: '-5%',
-    marginTop: '7.5%',
-  },
-  backButtonNull: {
-    width: '10%', // Use percentage width
-    height: '50%', // Use percentage height
-    opacity: 0
-  },
-  headerContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    marginVertical: '-5%',
-    marginBottom: '15%'
+    marginTop: 20,
+    marginBottom:20
   },
   signInButtonText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 19,
-    textAlign: 'center',
-  },
-  signUpText: {
-    textAlign: 'center',
-    fontSize: 17,
-    marginTop: '3%', // Use percentage margin
-    color: 'rgb(55, 53, 53)',
-    fontWeight: '400'
-  },
-  signUpLinkText: {
-    color: 'rgb(233,108,56)',
-    fontWeight: '600'
-  },
-  orText: {
-    marginTop: '18%', // Use percentage margin
-    marginBottom: '15%', // Use percentage margin
-    textAlign: 'center',
-    color: 'rgb(204, 201, 201)'
-  },
-  googleButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 13,
-    padding: '5%', // Use percentage padding
-    paddingHorizontal: '8%',
-  },
-  googleIcon: {
-    width: '9.5%', // Use percentage width
-    height: '100%', // Use percentage height
-    marginRight: '12%',
-  },
-  googleButtonText: {
-    color: '#000',
-    fontSize: 19,
-    fontWeight: '700'
   },
 });
+
 export default SetSpeedDial;
