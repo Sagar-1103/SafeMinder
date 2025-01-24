@@ -99,8 +99,8 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             style={styles.iconBox}
           >
             <TouchableOpacity onPress={()=> Linking.openURL(`tel:${user.contacts[0].phNo}`)} style={styles.touchable}>
-              <Image source={Logo} style={styles.profileImage} />
-              <Text style={styles.iconText}>person1</Text>
+              <Image source={require('../../assets/speedDial1.png')} style={styles.profileImage1} />
+              <Text style={styles.iconText}>{user.contacts[0].name}</Text>
             </TouchableOpacity>
           </LinearGradient>
 
@@ -111,8 +111,8 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             style={styles.iconBox}
           >
             <TouchableOpacity  onPress={()=> Linking.openURL(`tel:${user.contacts[1].phNo}`)} style={styles.touchable}>
-              <Image source={Logo} style={styles.profileImage} />
-              <Text style={styles.iconText}>person2</Text>
+              <Image source={require('../../assets/speedDial2.png')} style={styles.profileImage1} />
+              <Text style={styles.iconText}>{user.contacts[1].name}</Text>
             </TouchableOpacity>
           </LinearGradient>
         </View>
@@ -182,6 +182,12 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 50,
     height: 50,
+    // borderRadius: 25,
+    marginBottom: 8,
+  },
+  profileImage1: {
+    width: 70,
+    height: 70,
     // borderRadius: 25,
     marginBottom: 8,
   },
