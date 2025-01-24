@@ -22,6 +22,7 @@ import ReportsPage from '../screens/caretakerScreens/ReportsPage';
 import UserProfilePage from '../components/UserProfilePage';
 import FallAlert from '../screens/userScreens/FallAlert';
 import MedicineList from '../screens/userScreens/MedicineList';
+import MedTime from '../screens/caretakerScreens/medTime';
 
 const Stack = createNativeStackNavigator();
 
@@ -104,6 +105,7 @@ const AppNavigation = () => {
                 <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="SetHomeLocation"  >
                            <Stack.Screen name="SetHomeLocation" component={SetHomeLocation}/>
                            <Stack.Screen name="SetSpeedDial" component={SetSpeedDial}/>
+                           <Stack.Screen name="MedTime" component={MedTime}/>
                            <Stack.Screen name="UserCodeScreen" component={UserCodeScreen}/>
                 </Stack.Navigator>
             );

@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: '9%',
     borderWidth: 1,
-    height: '5%',
+    height: '7%',
     backgroundColor: 'rgb(248, 250, 250)',
     borderColor: 'rgb(212, 209, 209)',
     borderRadius: 15,
