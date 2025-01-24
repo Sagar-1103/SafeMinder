@@ -45,6 +45,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
               style={styles.touchable}
               onPress={()=>navigation.navigate("UserProfilePage")}
             >
+              <Image source={require('../../assets/UserSelectionProfile.png')} style={styles.profileImage1} />
               <Text style={styles.iconText}>Profile</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -85,7 +86,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
               onPress={() => navigation.navigate("ReportsPage")} // Use navigation.navigate
               style={styles.touchable}
             >
-              <Image source={require('../../assets/heartbeat.png')} style={styles.profileImage} />
+              <Image source={require('../../assets/healthWhite.png')} style={styles.profileImage} />
               <Text style={styles.iconText}>Health</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -99,8 +100,8 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             style={styles.iconBox}
           >
             <TouchableOpacity onPress={()=> Linking.openURL(`tel:${user.contacts[0].phNo}`)} style={styles.touchable}>
-              <Image source={Logo} style={styles.profileImage} />
-              <Text style={styles.iconText}>person1</Text>
+              <Image source={require('../../assets/speedDial1.png')} style={styles.profileImage1} />
+              <Text style={styles.iconText}>{user.contacts[0].name}</Text>
             </TouchableOpacity>
           </LinearGradient>
 
@@ -111,8 +112,8 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
             style={styles.iconBox}
           >
             <TouchableOpacity  onPress={()=> Linking.openURL(`tel:${user.contacts[1].phNo}`)} style={styles.touchable}>
-              <Image source={Logo} style={styles.profileImage} />
-              <Text style={styles.iconText}>person2</Text>
+              <Image source={require('../../assets/speedDial2.png')} style={styles.profileImage1} />
+              <Text style={styles.iconText}>{user.contacts[1].name}</Text>
             </TouchableOpacity>
           </LinearGradient>
         </View>
@@ -124,6 +125,7 @@ const UserHome = ({ startAllBackgroundServices, stopAllBackgroundServices }) => 
           style={styles.rectBox}
         >
           <TouchableOpacity onPress={()=> Linking.openURL(`tel:${caretaker.number}`)} style={styles.touchable}>
+            <Image source={require('../../assets/warning.png')} style={styles.profileImage} />            
             <Text style={styles.sosText}>Emergency SOS</Text>
           </TouchableOpacity>
         </LinearGradient>
@@ -182,6 +184,12 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 50,
     height: 50,
+    // borderRadius: 25,
+    marginBottom: 8,
+  },
+  profileImage1: {
+    width: 70,
+    height: 70,
     // borderRadius: 25,
     marginBottom: 8,
   },
