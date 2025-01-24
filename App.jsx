@@ -5,6 +5,7 @@ import AppNavigation from './AppNavigation/AppNavigation';
 import LoginProvider from './context/LoginProvider';
 LogBox.ignoreLogs(['new NativeEventEmitter']);
 import PushNotification from 'react-native-push-notification';
+import FallAlert from './screens/userScreens/FallAlert';
 
 const App = () => {
 
@@ -51,9 +52,10 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <LoginProvider>
+      {/* <LoginProvider>
         <AppNavigation />
-      </LoginProvider>
+      </LoginProvider> */}
+      <FallAlert/>
     </NavigationContainer>
   );
 };
