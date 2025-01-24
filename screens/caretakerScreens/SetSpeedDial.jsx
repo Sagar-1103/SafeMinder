@@ -131,7 +131,7 @@ const SetSpeedDial = ({navigation}) => {
           <TextInput
             style={styles.input}
             placeholderTextColor="#888"
-            placeholder="Enter your email"
+            placeholder="Contact 2 Name"
             value={contact2.name}
             onChangeText={(text) =>
               setContact2((prev) => ({ ...prev, name: text }))

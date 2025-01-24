@@ -55,6 +55,11 @@ const MedicationReminder = () => {
     try {
       const code = user?.id;
       const res1 = await firestore().collection('Medications').add({code,medicineName,medicineType,dosageUnit,fromDate,toDate});
+      setSelectedMeals([])
+      setMedicineType('')
+      setDosageUnit('')
+      setFromDate(new Date())
+      setToDate(new Date())
     } catch (error) {
       console.log("Error : ",error); 
     }
