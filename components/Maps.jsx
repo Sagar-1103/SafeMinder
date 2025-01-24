@@ -45,6 +45,7 @@ const Maps = () => {
               }
               if (boundDetectedStatus) {
                 showNotification(`${userName} is out of bound.`);
+                const res = await firestore().collection('Users').doc(user?.id).update({boundStatus: false});
               }
               if (fallDetectedStatus) {
                 try {
