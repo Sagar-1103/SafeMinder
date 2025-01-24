@@ -204,7 +204,7 @@ const Maps = () => {
         </PointAnnotation>
         <PointAnnotation
           id="pin"
-          coordinate={tempUserCurrentCoordinates}
+          coordinate={[tempUserCurrentCoordinates[1],tempUserCurrentCoordinates[0]]}
         >
           {/* <Image source={require('../assets/homePin.png')}/> */}
         </PointAnnotation>
