@@ -120,7 +120,7 @@ useEffect(() => {
 
         <View style={styles.inputContainer}>
   <Image
-    source={require('../../assets/User-Outline.png')}
+    source={require('../../assets/search.png')}
     style={styles.inputIcon}
   />
   <TextInput
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   inputIcon: {
-    width: '10%',
+    width: '8%',
     height: '60%',
     marginHorizontal: '4%',
   },

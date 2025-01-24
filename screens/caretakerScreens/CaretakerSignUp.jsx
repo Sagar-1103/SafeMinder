@@ -221,7 +221,7 @@ const CaretakerSignUp = ({navigation}) => {
           value={tempCurrPassword}
           onChangeText={(text) => setTempCurrPassword(text)}
         />
-        <Image source={require('../../assets/eye-slash.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets/eye-slash.png')} style={styles.passIcon} />
       </View>
 
       <TouchableOpacity onPress={handleSubmit} style={styles.signInButton}>
