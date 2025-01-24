@@ -57,6 +57,8 @@ const UserDetails = ({navigation}) => {
         gender: userGender,
         dob: userDob,
         number: userphno,
+        fallDetected:false,
+        boundStatus:false
       };
   
       const caretakerDetails = {
@@ -134,12 +136,12 @@ const UserDetails = ({navigation}) => {
                 } 
                 dropdownItemStyles={styles.item} 
                 dropdownTextStyles={styles.itemText} 
-                placeholder="Choose"
+                placeholder="Select Gender"
                 />
         </View>
 
       <View style={styles.emailInputContainer}>
-        <Image source={require('../../assets/date-of-birth.png')} style={styles.inputIcon} />
+        <Image source={require('../../assets/date-of-birth.png')} style={styles.inputIconDOB} />
         <TextInput
           style={styles.input}
           placeholderTextColor="#888"
@@ -240,6 +242,11 @@ const styles = StyleSheet.create({
     height: '60%',
     marginHorizontal: '4%',
   },
+  inputIconDOB: {
+    width: '10%',
+    height: '60%',
+    marginHorizontal: '3%',
+  },
   backButton: {
     width: '25%',
     height: '60%',
@@ -251,8 +258,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: '9%',
     borderWidth: 1,
-    height: '%',
-    backgroundColor: 'rgb(242, 242, 242)',
+    height: '5%',
+    backgroundColor: 'rgb(248, 250, 250)',
     borderColor: 'rgb(212, 209, 209)',
     borderRadius: 15,
     paddingVertical: '1.2%',
@@ -292,7 +299,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingVertical: 17,
     paddingHorizontal: 15,
-    backgroundColor: 'rgb(255, 253, 253)',
+    backgroundColor: 'rgb(248, 250, 250)',
     fontSize: 15,
     fontWeight: '500',
     color: '#000000',

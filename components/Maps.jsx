@@ -5,7 +5,8 @@ import { useLogin } from '../context/LoginProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
 Mapbox.setAccessToken('pk.eyJ1IjoiY29kZXNlZWtlcnMiLCJhIjoiY2x1ZmRidHkzMGtxMjJrcm84Nm93azFydyJ9.4PcFMmvYRH31QSZmtU1cXA');
-
+import PushNotification from 'react-native-push-notification';
+import BackgroundService from 'react-native-background-actions';
 
 const Maps = () => {
   const { user,radius,setRadius,setUser,userHomeLocation,caretaker,userCurrentLocation,setUserCurrentLocation } = useLogin();
@@ -15,6 +16,87 @@ const Maps = () => {
   const [locationToggle,setLocationToggle] = useState(false);
   const [coordinates, setCoordinates] = useState([]);
   const [tempUserCurrentCoordinates,setTempUserCurrentCoordinates] = useState([0,0]);
+  const [loading,setLoading] = useState(true);
+  const [serviceRunning,setServiceRunning]=useState(false)
+
+  const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), time));
+
+  // Background task function
+  const veryIntensiveTask = async (taskDataArguments) => {
+    const { delay } = taskDataArguments;
+    await new Promise(async (resolve) => {
+      for (let i = 0; BackgroundService.isRunning(); i++) {
+        if (i%15===0 && i>14) {
+          try {
+              const res = await firestore().collection('Users').doc(caretaker?.id).get();
+              const fallDetectedStatus = res._data.fallDetected;
+              const boundDetectedStatus = res._data.boundStatus;
+              const userName = res._data?.name;
+              if (boundDetectedStatus) {
+                showNotification(`${userName} is out of bound.`);
+              }
+              if (fallDetectedStatus) {
+                try {
+                  await firestore().collection('Users').doc(caretaker?.id).update({'fallDetected': false});
+                  showNotification(`${userName} has fallen down`);
+              } catch (error) {
+                  console.log(error);
+              }
+              }
+          } catch (error) {
+              console.log(error);
+          }
+      }        
+        await sleep(delay);
+      }
+    });
+  };
+  const showNotification = (mess) => {
+    PushNotification.localNotification({
+      channelId: "Caretaker-alert", // Channel ID
+      title: 'Alert',
+      message: mess,
+    });
+  };
+
+  // Options for background service
+  const options = {
+    taskName: 'BackgroundTimerTask',
+    taskTitle: 'Background Timer',
+    taskDesc: 'Running background timer',
+    taskIcon: {
+      name: 'ic_launcher',
+      type: 'mipmap',
+    },
+    color: '#ff00ff',
+    linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
+    parameters: {
+      delay: 1000,
+    },
+  };
+
+  // Function to start background service
+  const startBackgroundService = async () => {
+    await BackgroundService.start(veryIntensiveTask, options);
+    setServiceRunning(true);
+  };
+
+  // Function to stop background service
+  const stopBackgroundService = async () => {
+    await BackgroundService.stop(veryIntensiveTask, options);
+    setServiceRunning(false);
+  };
+
+  const toggleService = () => {
+    if (serviceRunning) {
+      console.log("Stopped Services");
+      stopBackgroundService();
+    } else {
+      console.log("Started Services");
+      startBackgroundService();
+    }
+  };
+
 
   const handleMapPress = async(event) => {
     setTempUserHomeCoordinates(event.geometry.coordinates);
@@ -23,8 +105,8 @@ const Maps = () => {
   const centerHandler = async()=>{
     try {
       if(locationToggle){
-        const res1 = await firestore().collection('Caretakers').doc(caretaker.id).set({userHomeCoordinates:tempUserHomeCoordinates}, { merge: true });
-        const res2 = await firestore().collection('Users').doc(caretaker.id).set({userHomeCoordinates:tempUserHomeCoordinates}, { merge: true });
+        const res1 = await firestore().collection('Caretakers').doc(caretaker?.id).set({userHomeCoordinates:tempUserHomeCoordinates}, { merge: true });
+        const res2 = await firestore().collection('Users').doc(caretaker?.id).set({userHomeCoordinates:tempUserHomeCoordinates}, { merge: true });
         await AsyncStorage.setItem('userHomeLocation',JSON.stringify(tempUserHomeCoordinates));
       }
       setLocationToggle((prev)=>!prev)
@@ -32,13 +114,17 @@ const Maps = () => {
       console.log("Error : ",error);
     }
   }
-  useEffect(()=>{
-    setTempUserHomeCoordinates(userHomeLocation);
-    setTempUserCurrentCoordinates(userCurrentLocation);
-    fetchUserCoodinates();
+  useEffect(()=>{    
+    setLoading(true);
+    setTempUserHomeCoordinates(userHomeLocation);    
+    setTempUserCurrentCoordinates(userCurrentLocation);    
     setTempRadius(`${radius}`);
     drawCircumference();
-  },[]);
+    setLoading(false);
+    fetchUserCoodinates();
+  },[user,userHomeLocation,caretaker]);
+
+
 
   const drawCircumference = () => {
     const numPoints = 360;
@@ -47,8 +133,8 @@ const Maps = () => {
     
     for (let i = 0; i < numPoints; i++) {
       const angle = (Math.PI / 180) * (i * (360 / numPoints));
-      const latitude = tempUserHomeCoordinates[1] + (radiusMeters / 111111) * Math.cos(angle);
-      const longitude = tempUserHomeCoordinates[0] + (radiusMeters / (111111 * Math.cos(tempUserHomeCoordinates[1]))) * Math.sin(angle);
+      const latitude = tempUserHomeCoordinates?.[1] + (radiusMeters / 111111) * Math.cos(angle);
+      const longitude = tempUserHomeCoordinates?.[0] + (radiusMeters / (111111 * Math.cos(tempUserHomeCoordinates?.[1]))) * Math.sin(angle);
       points.push([longitude, latitude]);
     }
     setCoordinates(points);
@@ -58,12 +144,12 @@ const Maps = () => {
     if (coordinates.length>0) {
       drawCircumference();
     }
-  },[tempUserHomeCoordinates,tempRadius,radius,user.userHomeCoordinates]);
+  },[tempUserHomeCoordinates,tempUserCurrentCoordinates,tempRadius,radius,user.userHomeCoordinates]);
 
   const handleRadiusSubmit = async()=>{
     try {
-      const res1 = await firestore().collection('Users').doc(caretaker.id).set({radius:tempRadius}, { merge: true });
-      const res2 = await firestore().collection('Caretakers').doc(caretaker.id).set({radius:tempRadius}, { merge: true });
+      const res1 = await firestore().collection('Users').doc(caretaker?.id).set({radius:tempRadius}, { merge: true });
+      const res2 = await firestore().collection('Caretakers').doc(caretaker?.id).set({radius:tempRadius}, { merge: true });
       await AsyncStorage.setItem('radius', tempRadius);
       setRadius(tempRadius);
       setUser({userHomeCoordinates:tempUserCurrentCoordinates});
@@ -75,8 +161,8 @@ const Maps = () => {
 
   const fetchUserCoodinates = async()=>{
     setInterval(async() => {
-      const res = await firestore().collection('Users').doc(caretaker.id).get();
-      const tempCoordinates = res._data.userCurrentCoordinates;
+      const res = await firestore().collection('Users').doc(caretaker?.id).get();
+      const tempCoordinates =await res._data?.userCurrentCoordinates;            
       setTempUserCurrentCoordinates(tempCoordinates);
       setUserCurrentLocation(tempCoordinates);
       await AsyncStorage.setItem('userCurrentLocation',JSON.stringify(tempCoordinates));
@@ -105,14 +191,14 @@ const Maps = () => {
         >
           {/* <Image source={require('../assets/homePin.png')}/> */}
         </PointAnnotation>
-        {!(tempUserCurrentCoordinates[0] === 0 && tempUserCurrentCoordinates[1] === 0) && <PointAnnotation
+        <PointAnnotation
           id="pin"
           coordinate={tempUserCurrentCoordinates}
         >
           {/* <Image source={require('../assets/homePin.png')}/> */}
-        </PointAnnotation>}
+        </PointAnnotation>
       </MapView>
-      <TouchableOpacity onPress={centerHandler} style={[styles.centerButton, styles.settingsButton]}>
+      <TouchableOpacity onLongPress={toggleService} delayLongPress={2000} onPress={centerHandler} style={[styles.centerButton, styles.settingsButton]}>
         <Text style={styles.settingsText}>{locationToggle?"Lock":"Set"} Center</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => setModalVisible(true)} style={[styles.radiusButton, styles.settingsButton]}>

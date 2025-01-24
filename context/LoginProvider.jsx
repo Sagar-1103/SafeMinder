@@ -27,7 +27,7 @@ const LoginProvider = props => {
 
   const [userCurrentLocation, setUserCurrentLocation] = useState([0, 0]);
   const [userHomeLocation, setUserHomeLocation] = useState([75, 15]);
-  const [radius, setRadius] = useState(1);
+  const [radius, setRadius] = useState(10);
   return (
     <LoginContext.Provider
       value={{
