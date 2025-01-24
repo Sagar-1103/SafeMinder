@@ -31,13 +31,24 @@ const Maps = () => {
               const res = await firestore().collection('Users').doc(caretaker?.id).get();
               const fallDetectedStatus = res._data.fallDetected;
               const boundDetectedStatus = res._data.boundStatus;
+              const sosStatus = res._data?.sos
               const userName = res._data?.name;
+              if(sosStatus){
+                try {
+                  const res = await firestore().collection('Users').doc(user?.id).update({sos: false});
+                  console.log(res);
+                  
+                  showNotification(`${userName} has sent a sos emergency message.`);
+              } catch (error) {
+                  console.log(error);
+              }
+              }
               if (boundDetectedStatus) {
                 showNotification(`${userName} is out of bound.`);
               }
               if (fallDetectedStatus) {
                 try {
-                  await firestore().collection('Users').doc(caretaker?.id).update({'fallDetected': false});
+                  await firestore().collection('Users').doc(user?.id).update({fallDetected: false});
                   showNotification(`${userName} has fallen down`);
               } catch (error) {
                   console.log(error);
